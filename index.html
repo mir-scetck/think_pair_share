@@ -1,0 +1,3571 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الفضاء التفاعلية: فكر، زاوج، شارك</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================================================
+           PURE WHITE BACKGROUND & 4 BOTANICAL SAKURA / PEONY STYLES THEME
+           ========================================================================== */
+        :root {
+            --bg-pure-white: #FFFFFF;
+            --bg-card-white: rgba(255, 255, 255, 0.96);
+            --bg-soft-slate: #F8FAFC;
+            --bg-soft-blush: #FFF5F7;
+            --bg-soft-ice: #F0F9FF;
+            --bg-soft-sage: #F2FBF7;
+
+            /* High-Contrast Crystal-Clear Typography Colors */
+            --text-heading: #0F172A;
+            --text-body: #1E293B;
+            --text-muted: #475569;
+
+            /* Botanical Palette Accents from the 4 Reference Images */
+            --ice-blue-petal: #CCF2FF;
+            --ice-blue-deep: #1E4E68;
+            --calyx-indigo: #5B5F97;
+            --peony-pink: #F9BEC7;
+            --peony-blush: #FDE2E4;
+            --peony-outline: #B56576;
+            --sage-leaf: #C7E5C8;
+            --sage-vein: #52796F;
+            --sakura-blush: #FFD6E0;
+            --ink-line: #1E293B;
+
+            --border-clean: #E2E8F0;
+            --border-blush: #FBCFE8;
+            --border-ice: #BAE6FD;
+
+            --shadow-clean: 0 10px 28px rgba(15, 23, 42, 0.05), 0 2px 8px rgba(15, 23, 42, 0.03);
+            --shadow-hover: 0 14px 34px rgba(30, 78, 104, 0.10);
+
+            --radius-xl: 22px;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 9px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', 'Calibri', sans-serif;
+            direction: rtl;
+            background-color: var(--bg-pure-white);
+            color: var(--text-body);
+            min-height: 100vh;
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Subtle Architectural Grid Overlay on Pure White */
+        .white-architectural-grid {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-color: #FFFFFF;
+            background-image:
+                linear-gradient(to right, rgba(226, 232, 240, 0.45) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(226, 232, 240, 0.45) 1px, transparent 1px);
+            background-size: 44px 44px;
+        }
+
+        /* Animated HTML5 Canvas for Drifting Sakura Petals & Blossoms */
+        #cute-floral-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Fixed Botanical SVG Layer (Exact 4 Uploaded Flower Styles + Wireframe Shapes) */
+        .floating-cute-svg-layer {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        @keyframes gentleBotanicalSway {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-7px) rotate(2.5deg); }
+        }
+
+        .botanical-sway {
+            animation: gentleBotanicalSway 7s ease-in-out infinite;
+        }
+
+        .botanical-sway-slow {
+            animation: gentleBotanicalSway 9.5s ease-in-out 1.2s infinite;
+        }
+
+        /* Corner Botanical Accent on Cards */
+        .corner-flower-deco {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.9;
+            transition: transform 0.35s ease;
+        }
+
+        div:hover > .corner-flower-deco,
+        section:hover > .corner-flower-deco {
+            transform: scale(1.06) rotate(4deg);
+        }
+
+        /* ==========================================================================
+           MAIN SHELL & 2-COLUMN DESKTOP LAYOUT (75% RIGHT MAIN / 25% LEFT SIDEBAR)
+           ========================================================================== */
+        .app-wrapper {
+            position: relative;
+            z-index: 5;
+            max-width: 1460px;
+            margin: 0 auto;
+            padding: 18px 22px 44px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .two-column-workspace {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* Right Primary Container (75% Width in RTL) */
+        .primary-right-column {
+            width: 75%;
+            flex: 0 0 calc(75% - 10px);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        /* Left Secondary Pedagogical Reference Panel (25% Width in RTL) */
+        .secondary-left-sidebar {
+            width: 25%;
+            flex: 0 0 calc(25% - 10px);
+            background: var(--bg-card-white);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-xl);
+            padding: 18px;
+            box-shadow: var(--shadow-clean);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: sticky;
+            top: 16px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 1150px) {
+            .two-column-workspace {
+                flex-direction: column;
+            }
+            .primary-right-column,
+            .secondary-left-sidebar {
+                width: 100%;
+                flex: 1 1 100%;
+                position: static;
+            }
+        }
+
+        /* ==========================================================================
+           STEP 2: TOP NAVIGATION BAR
+           ========================================================================== */
+        .top-header-bar {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-card-white);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-xl);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: var(--shadow-clean);
+        }
+
+        .brand-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .square-logo-icon {
+            width: 60px;
+            height: 60px;
+            border: 1.5px solid var(--border-ice);
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--bg-soft-ice), var(--bg-soft-blush));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(30, 78, 104, 0.08);
+        }
+
+        .brand-title-group h1 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--text-heading);
+            letter-spacing: -0.2px;
+        }
+
+        .brand-title-group p {
+            font-size: 0.9rem;
+            color: var(--peony-outline);
+            font-weight: 700;
+        }
+
+        .rect-modal-btn {
+            position: relative;
+            z-index: 2;
+            background: var(--bg-soft-ice);
+            color: var(--ice-blue-deep);
+            border: 1.5px solid var(--border-ice);
+            border-radius: var(--radius-md);
+            padding: 10px 18px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.22s ease;
+        }
+
+        .rect-modal-btn:hover {
+            background: #E0F2FE;
+            border-color: var(--ice-blue-deep);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ==========================================================================
+           5 ILLUSTRATED NAVIGATION TABS (CLEAR, CUTE & ORGANIZED)
+           ========================================================================== */
+        .illustrated-tabs-nav {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        @media (max-width: 980px) {
+            .illustrated-tabs-nav {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 640px) {
+            .illustrated-tabs-nav {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .tab-card-btn {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-card-white);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-lg);
+            padding: 12px 14px;
+            cursor: pointer;
+            font-family: inherit;
+            color: var(--text-body);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: right;
+            transition: all 0.22s ease;
+            box-shadow: var(--shadow-clean);
+        }
+
+        .tab-card-btn:hover {
+            border-color: var(--peony-outline);
+            background: var(--bg-soft-blush);
+            transform: translateY(-2px);
+        }
+
+        .tab-card-btn.active {
+            background: linear-gradient(135deg, var(--bg-soft-ice) 0%, var(--bg-soft-blush) 100%);
+            border-color: var(--ice-blue-deep);
+            box-shadow: 0 8px 22px rgba(30, 78, 104, 0.12);
+        }
+
+        .tab-card-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--ice-blue-deep), var(--peony-outline), var(--sage-vein));
+        }
+
+        .tab-photo-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 13px;
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tab-label-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tab-step-num {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--peony-outline);
+        }
+
+        .tab-main-title {
+            font-size: 0.92rem;
+            font-weight: 900;
+            color: var(--text-heading);
+            line-height: 1.35;
+        }
+
+        /* Tab Panels */
+        .tab-view-panel {
+            display: none;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-card-white);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-clean);
+            animation: fadeInPanel 0.28s ease;
+        }
+
+        .tab-view-panel.active-view {
+            display: block;
+        }
+
+        @keyframes fadeInPanel {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Section Header Banner inside each Tab */
+        .tab-intro-banner {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            background: linear-gradient(135deg, var(--bg-soft-ice) 0%, var(--bg-soft-blush) 100%);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-lg);
+            padding: 18px 22px;
+            margin-bottom: 22px;
+        }
+
+        .tab-intro-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tab-intro-illustration {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+        }
+
+        .tab-intro-text h2 {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--text-heading);
+            margin-bottom: 3px;
+        }
+
+        .tab-intro-text p {
+            font-size: 0.92rem;
+            color: var(--text-body);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           TAB 1: 5 EDUCATIONAL VIDEO STATIONS
+           ========================================================================== */
+        .videos-five-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .video-card-featured {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 820px) {
+            .videos-five-grid {
+                grid-template-columns: 1fr;
+            }
+            .video-card-featured {
+                grid-column: span 1;
+            }
+        }
+
+        .video-card {
+            position: relative;
+            overflow: hidden;
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-lg);
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 0.22s ease;
+            box-shadow: var(--shadow-clean);
+        }
+
+        .video-card:hover {
+            border-color: var(--ice-blue-deep);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .video-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .video-step-tag {
+            background: var(--bg-soft-ice);
+            color: var(--ice-blue-deep);
+            border: 1.5px solid var(--border-ice);
+            font-size: 0.82rem;
+            font-weight: 800;
+            padding: 4px 13px;
+            border-radius: 99px;
+        }
+
+        .video-player-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            background: #0F172A;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1.5px solid var(--border-clean);
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-player-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .video-empty-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #F8FAFC 0%, #FFF5F7 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .video-card-footer {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .file-attach-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--bg-soft-blush);
+            border: 1.5px solid var(--border-blush);
+            color: var(--text-heading);
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .file-attach-label:hover {
+            background: var(--peony-blush);
+            border-color: var(--peony-outline);
+        }
+
+        /* ==========================================================================
+           TAB 2: HERO POLYGON FRAME + FISHBOWL MAP + 3 STRATEGY CARDS
+           ========================================================================== */
+        .hero-polygon-frame {
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, var(--bg-soft-ice) 0%, #FFFFFF 50%, var(--bg-soft-blush) 100%);
+            border: 2px solid var(--ice-blue-deep);
+            border-radius: var(--radius-xl);
+            padding: 24px 28px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-clean);
+            clip-path: polygon(2% 0%, 98% 0%, 100% 14%, 100% 86%, 98% 100%, 2% 100%, 0% 86%, 0% 14%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 14px;
+        }
+
+        .mars-square-badge {
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
+            background: #FFFFFF;
+            border: 1.5px solid var(--ice-blue-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(30, 78, 104, 0.1);
+        }
+
+        .open-question-box {
+            max-width: 920px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-md);
+            padding: 16px 22px;
+            line-height: 1.9;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+        }
+
+        .hero-controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            width: 100%;
+        }
+
+        /* 3 Mars Challenges Selector */
+        .challenge-selector-box {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .challenge-selector-title {
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--text-heading);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .challenges-three-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        @media (max-width: 860px) {
+            .challenges-three-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .challenge-card {
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-clean);
+        }
+
+        .challenge-card:hover {
+            border-color: var(--ice-blue-deep);
+            transform: translateY(-2px);
+        }
+
+        .challenge-card.selected-challenge {
+            background: linear-gradient(135deg, var(--bg-soft-ice), var(--bg-soft-blush));
+            border-color: var(--ice-blue-deep);
+            box-shadow: 0 8px 20px rgba(30, 78, 104, 0.12);
+        }
+
+        .challenge-card-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .challenge-icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .challenge-card h4 {
+            font-size: 0.96rem;
+            font-weight: 900;
+            color: var(--text-heading);
+        }
+
+        .challenge-card p {
+            font-size: 0.86rem;
+            color: var(--text-body);
+            line-height: 1.65;
+            font-weight: 600;
+        }
+
+        /* Fishbowl Live Classroom Map Strip */
+        .fishbowl-map-banner {
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 18px;
+            align-items: center;
+            box-shadow: var(--shadow-clean);
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 860px) {
+            .fishbowl-map-banner {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .classroom-svg-stage {
+            width: 100%;
+            height: 205px;
+            background: linear-gradient(180deg, var(--bg-soft-ice) 0%, var(--bg-soft-blush) 100%);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        /* Step 4: The Three Primary Strategy Cards Row (Think - Pair - Share) */
+        .three-strategy-cards-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 1040px) {
+            .three-strategy-cards-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .strategy-stage-card {
+            position: relative;
+            overflow: hidden;
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: var(--shadow-clean);
+            transition: all 0.25s ease;
+        }
+
+        .strategy-stage-card.active-stage-focus {
+            border: 2px solid var(--ice-blue-deep);
+            box-shadow: 0 12px 28px rgba(30, 78, 104, 0.12);
+        }
+
+        .strategy-stage-card.locked-stage {
+            opacity: 0.88;
+        }
+
+        .stage-card-top-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+            padding-bottom: 10px;
+            border-bottom: 1.5px dashed var(--border-clean);
+            position: relative;
+            z-index: 2;
+        }
+
+        .stage-square-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: var(--bg-soft-ice);
+            border: 1.5px solid var(--ice-blue-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ice-blue-deep);
+            font-weight: 900;
+        }
+
+        .stage-card-top-center h3 {
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: var(--text-heading);
+        }
+
+        .rules-status-banner {
+            background: var(--bg-soft-blush);
+            border: 1.5px solid var(--border-blush);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            font-size: 0.83rem;
+            font-weight: 800;
+            color: #881337;
+            line-height: 1.65;
+        }
+
+        /* Common Buttons, Inputs & Controls */
+        .primary-action-btn {
+            background: var(--ice-blue-deep);
+            color: #FFFFFF;
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 11px 18px;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(30, 78, 104, 0.18);
+        }
+
+        .primary-action-btn:hover {
+            background: #153B50;
+            transform: translateY(-1px);
+        }
+
+        .teacher-timer-box {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-sm);
+            padding: 7px 14px;
+        }
+
+        .timer-digits {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: var(--ice-blue-deep);
+            background: var(--bg-soft-ice);
+            border: 1.5px solid var(--border-ice);
+            padding: 2px 12px;
+            border-radius: 8px;
+            min-width: 74px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .clean-select,
+        .clean-btn-sm {
+            font-family: inherit;
+            font-size: 0.84rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            border-radius: 8px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .clean-btn-sm:hover {
+            border-color: var(--ice-blue-deep);
+            background: var(--bg-soft-ice);
+        }
+
+        .field-label {
+            font-size: 0.86rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .clean-textarea,
+        .clean-input {
+            width: 100%;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-heading);
+            background: var(--bg-soft-slate);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            resize: vertical;
+            line-height: 1.7;
+            transition: all 0.2s;
+        }
+
+        .clean-textarea:focus,
+        .clean-input:focus {
+            outline: none;
+            background: #FFFFFF;
+            border-color: var(--ice-blue-deep);
+            box-shadow: 0 0 0 3px rgba(30, 78, 104, 0.1);
+        }
+
+        .compare-box {
+            background: var(--bg-soft-slate);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            font-size: 0.84rem;
+            color: var(--text-body);
+            font-weight: 600;
+            line-height: 1.65;
+        }
+
+        .compare-box strong {
+            display: block;
+            color: var(--ice-blue-deep);
+            margin-bottom: 3px;
+            font-weight: 900;
+        }
+
+        .radio-group-clean {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: var(--bg-soft-slate);
+            border: 1.5px solid var(--border-clean);
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.84rem;
+            font-weight: 800;
+            color: var(--text-heading);
+        }
+
+        .radio-group-clean label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .quartet-btn {
+            width: 100%;
+            background: var(--bg-soft-blush);
+            color: #881337;
+            border: 1.5px dashed var(--peony-outline);
+            border-radius: var(--radius-sm);
+            padding: 9px 12px;
+            font-family: inherit;
+            font-size: 0.84rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quartet-btn.active {
+            background: var(--bg-soft-sage);
+            color: #065F46;
+            border-style: solid;
+            border-color: var(--sage-vein);
+        }
+
+        .quartet-note {
+            display: none;
+            background: var(--bg-soft-sage);
+            border: 1.5px solid #A7F3D0;
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            font-size: 0.82rem;
+            color: #065F46;
+            font-weight: 700;
+            line-height: 1.65;
+        }
+
+        .quartet-note.show {
+            display: block;
+        }
+
+        .class-board-panel {
+            background: linear-gradient(135deg, var(--bg-soft-ice), var(--bg-soft-blush));
+            border: 1.5px solid var(--ice-blue-deep);
+            color: var(--text-heading);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            line-height: 1.7;
+        }
+
+        .class-board-panel h4 {
+            color: var(--ice-blue-deep);
+            font-size: 0.92rem;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+
+        .qa-feed {
+            max-height: 170px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .qa-card {
+            background: var(--bg-soft-slate);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-sm);
+            padding: 9px 11px;
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .qa-card .q-line {
+            font-weight: 800;
+            color: var(--ice-blue-deep);
+        }
+
+        .qa-card .a-line {
+            color: #065F46;
+            margin-top: 3px;
+            font-weight: 700;
+        }
+
+        /* ==========================================================================
+           STEP 6: LEFT SECONDARY SIDEBAR (25% WIDTH PEDAGOGICAL REFERENCE PANEL)
+           ========================================================================== */
+        .sidebar-header-title {
+            font-size: 1.02rem;
+            font-weight: 900;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 10px;
+            border-bottom: 1.5px solid var(--border-clean);
+        }
+
+        .pyramid-three-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .narrow-v-card {
+            background: var(--bg-soft-slate);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-md);
+            padding: 10px 6px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .narrow-v-card .v-square {
+            width: 32px;
+            height: 32px;
+            border: 1.5px solid var(--ice-blue-deep);
+            border-radius: 8px;
+            background: var(--bg-soft-ice);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 900;
+            color: var(--ice-blue-deep);
+        }
+
+        .narrow-v-card h4 {
+            font-size: 0.86rem;
+            font-weight: 900;
+            color: var(--text-heading);
+        }
+
+        .narrow-v-card span {
+            display: block;
+            width: 100%;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-body);
+            background: #FFFFFF;
+            border: 1px solid var(--border-clean);
+            border-radius: 5px;
+            padding: 3px 4px;
+        }
+
+        /* Geometric Divider: Square - Triangle - Square */
+        .geometric-divider-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 8px 0;
+            border-top: 1px dashed var(--border-clean);
+            border-bottom: 1px dashed var(--border-clean);
+        }
+
+        .sidebar-role-box {
+            background: var(--bg-soft-slate);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-role-box h4 {
+            font-size: 0.9rem;
+            font-weight: 900;
+            color: var(--ice-blue-deep);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .sidebar-role-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .sidebar-role-list li {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-body);
+            background: #FFFFFF;
+            border: 1px solid var(--border-clean);
+            border-radius: 7px;
+            padding: 6px 9px;
+            line-height: 1.55;
+        }
+
+        .sidebar-summary-footer {
+            background: linear-gradient(135deg, var(--bg-soft-ice), var(--bg-soft-blush));
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .summary-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: var(--text-heading);
+        }
+
+        .sidebar-three-sq-btns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+
+        .sq-action-btn {
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            border-radius: 8px;
+            padding: 7px 4px;
+            font-family: inherit;
+            font-size: 0.74rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            transition: all 0.2s;
+        }
+
+        .sq-action-btn:hover {
+            border-color: var(--ice-blue-deep);
+            background: var(--bg-soft-ice);
+        }
+
+        /* ==========================================================================
+           TAB 3 & TAB 4: ROLES & 8-SLIDE PRESENTATION VIEWER
+           ========================================================================== */
+        .role-card {
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-lg);
+            padding: 18px;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-clean);
+        }
+
+        .role-card-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1.5px dashed var(--border-clean);
+        }
+
+        .role-square-icon {
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid var(--ice-blue-deep);
+            border-radius: 10px;
+            background: var(--bg-soft-ice);
+            color: var(--ice-blue-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 900;
+        }
+
+        .role-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        @media (max-width: 640px) {
+            .role-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .role-list li {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            background: var(--bg-soft-slate);
+            border: 1.5px solid var(--border-clean);
+            border-radius: 9px;
+            padding: 10px 12px;
+            line-height: 1.65;
+        }
+
+        .slide-nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+            background: var(--bg-soft-slate);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-md);
+            padding: 10px 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .slide-pills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .slide-pill-btn {
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            color: var(--text-heading);
+            border-radius: 8px;
+            padding: 5px 12px;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .slide-pill-btn.active {
+            background: var(--ice-blue-deep);
+            color: #FFFFFF;
+            border-color: var(--ice-blue-deep);
+        }
+
+        .clean-slide-sheet {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--bg-soft-ice) 50%, var(--bg-soft-blush) 100%);
+            border: 2px solid var(--border-clean);
+            border-radius: var(--radius-lg);
+            padding: 26px;
+            box-shadow: var(--shadow-clean);
+        }
+
+        .clean-slide-title {
+            text-align: center;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--text-heading);
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed var(--border-clean);
+        }
+
+        .slide-six-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        @media (max-width: 720px) {
+            .slide-six-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .slide-point-card {
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+        }
+
+        .slide-point-num {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-soft-ice);
+            border: 2px solid var(--ice-blue-deep);
+            color: var(--ice-blue-deep);
+            font-weight: 900;
+            font-size: 0.98rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .slide-point-text {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            line-height: 1.65;
+        }
+
+        .slide-three-pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        @media (max-width: 720px) {
+            .slide-three-pillars {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .slide-pillar-card {
+            background: #FFFFFF;
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-md);
+            padding: 22px 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-clean);
+        }
+
+        /* ==========================================================================
+           TAB 5: INTERACTIVE 14-QUESTION COMPETITION
+           ========================================================================== */
+        .quiz-card-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 780px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border: 2px solid var(--border-clean);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-clean);
+        }
+
+        .quiz-scoreboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .quiz-team-box {
+            background: var(--bg-soft-slate);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            text-align: center;
+        }
+
+        .quiz-team-box.active-turn {
+            background: linear-gradient(135deg, var(--bg-soft-ice), var(--bg-soft-blush));
+            border-color: var(--ice-blue-deep);
+        }
+
+        .quiz-score-val {
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: var(--ice-blue-deep);
+        }
+
+        .quiz-option-btn {
+            width: 100%;
+            text-align: right;
+            background: var(--bg-soft-slate);
+            border: 1.5px solid var(--border-clean);
+            color: var(--text-heading);
+            border-radius: var(--radius-sm);
+            padding: 13px 16px;
+            font-family: inherit;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 9px;
+            display: block;
+            transition: all 0.15s ease;
+        }
+
+        .quiz-option-btn:hover {
+            border-color: var(--ice-blue-deep);
+            background: var(--bg-soft-ice);
+        }
+
+        .quiz-option-btn.correct-ans {
+            background: #D1FAE5 !important;
+            border-color: #10B981 !important;
+            color: #065F46 !important;
+            font-weight: 900;
+        }
+
+        .quiz-option-btn.wrong-ans {
+            background: #FFE4E6 !important;
+            border-color: #F43F5E !important;
+            color: #9F1239 !important;
+        }
+
+        /* ==========================================================================
+           MODAL & TOAST
+           ========================================================================== */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal-window {
+            background: #FFFFFF;
+            border: 2px solid var(--border-clean);
+            border-radius: var(--radius-xl);
+            max-width: 760px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+        }
+
+        .alt-names-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        @media (max-width: 600px) {
+            .alt-names-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .alt-card {
+            background: var(--bg-soft-slate);
+            border: 1.5px solid var(--border-clean);
+            border-radius: var(--radius-md);
+            padding: 14px;
+        }
+
+        .alt-card h4 {
+            font-size: 0.92rem;
+            font-weight: 900;
+            color: var(--ice-blue-deep);
+            margin-bottom: 4px;
+        }
+
+        .alt-card p {
+            font-size: 0.84rem;
+            color: var(--text-body);
+            font-weight: 600;
+        }
+
+        .toast-notice {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 2000;
+            background: var(--text-heading);
+            color: #FFFFFF;
+            border: 1.5px solid var(--border-ice);
+            border-radius: var(--radius-sm);
+            padding: 10px 18px;
+            font-size: 0.86rem;
+            font-weight: 800;
+            box-shadow: var(--shadow-hover);
+            transform: translateY(130%);
+            opacity: 0;
+            transition: all 0.25s ease;
+        }
+
+        .toast-notice.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .hidden-sec {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pure Crisp White Base with Subtle Architectural Grid -->
+    <div class="white-architectural-grid"></div>
+
+    <!-- Animated HTML5 Canvas for Drifting Sakura Petals & Blossoms (All 4 Styles) -->
+    <canvas id="cute-floral-canvas"></canvas>
+
+    <!-- ==========================================================================
+         EXACT 4 BOTANICAL FLOWER ILLUSTRATIONS FROM UPLOADED IMAGES (NO FACES)
+         1. #style1-ice-sakura (image_0efa46.png: Ice-blue notched cherry blossom & branch)
+         2. #style2-ink-sakura (image_0efa23.png: Black ink-line cherry blossom branch)
+         3. #style3-pink-peony (image_0efa05.png: Double-layered pink peony with sage leaves)
+         4. #style4-blush-sakura (image_0ef9e7.png: Blush-pink 5-petal sakura with yellow-green center)
+         ========================================================================== -->
+    <svg class="floating-cute-svg-layer" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+            <!-- Gradients for Style 1 (Ice-Blue Cherry Blossom - image_0efa46.png) -->
+            <radialGradient id="iceBlueGrad" cx="50%" cy="50%" r="55%">
+                <stop offset="0%" stop-color="#E0F7FA"/>
+                <stop offset="65%" stop-color="#CCF2FF"/>
+                <stop offset="100%" stop-color="#BAE6FD"/>
+            </radialGradient>
+
+            <!-- Gradients for Style 3 (Pink Double Peony - image_0efa05.png) -->
+            <radialGradient id="peonyOuterGrad" cx="50%" cy="50%" r="55%">
+                <stop offset="0%" stop-color="#FFF0F3"/>
+                <stop offset="100%" stop-color="#F9BEC7"/>
+            </radialGradient>
+            <radialGradient id="peonyInnerGrad" cx="50%" cy="50%" r="55%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="100%" stop-color="#FDE2E4"/>
+            </radialGradient>
+
+            <!-- Gradients for Style 4 (Blush Sakura - image_0ef9e7.png) -->
+            <radialGradient id="blushSakuraGrad" cx="50%" cy="50%" r="55%">
+                <stop offset="0%" stop-color="#FFF5F7"/>
+                <stop offset="65%" stop-color="#FFD6E0"/>
+                <stop offset="100%" stop-color="#FBCFE8"/>
+            </radialGradient>
+
+            <!--Single Notched Sakura Petal Path (Reusable for 5-petal rotational blossoms)-->
+            <path id="notchedSakuraPetal" d="M 0,0 C -8,-7 -13,-20 -7,-28 C -4,-31 -2,-29 0,-26 C 2,-29 4,-31 7,-28 C 13,-20 8,-7 0,0 Z"/>
+
+            <!-- STYLE 1: Ice-Blue 5-Petal Notched Cherry Blossom (image_0efa46.png) -->
+            <g id="style1-ice-blossom">
+                <g fill="url(#iceBlueGrad)" stroke="#1E4E68" stroke-width="1.15">
+                    <use href="#notchedSakuraPetal" transform="rotate(0)"/>
+                    <use href="#notchedSakuraPetal" transform="rotate(72)"/>
+                    <use href="#notchedSakuraPetal" transform="rotate(144)"/>
+                    <use href="#notchedSakuraPetal" transform="rotate(216)"/>
+                    <use href="#notchedSakuraPetal" transform="rotate(288)"/>
+                </g>
+                <!-- Soft cyan inner shading & radiating blue stamens with dark navy anther dots -->
+                <circle cx="0" cy="0" r="5.5" fill="#7DD3FC" opacity="0.55"/>
+                <g stroke="#2563EB" stroke-width="0.95" stroke-linecap="round">
+                    <line x1="0" y1="0" x2="0" y2="-12"/><line x1="0" y1="0" x2="8" y2="-9"/>
+                    <line x1="0" y1="0" x2="12" y2="-2"/><line x1="0" y1="0" x2="9" y2="8"/>
+                    <line x1="0" y1="0" x2="3" y2="11"/><line x1="0" y1="0" x2="-5" y2="10"/>
+                    <line x1="0" y1="0" x2="-11" y2="5"/><line x1="0" y1="0" x2="-11" y2="-4"/>
+                    <line x1="0" y1="0" x2="-6" y2="-10"/>
+                </g>
+                <g fill="#1E3A8A">
+                    <circle cx="0" cy="-12.5" r="1.3"/><circle cx="8.5" cy="-9.5" r="1.3"/>
+                    <circle cx="12.5" cy="-2" r="1.3"/><circle cx="9.5" cy="8.5" r="1.3"/>
+                    <circle cx="3" cy="11.5" r="1.3"/><circle cx="-5.5" cy="10.5" r="1.3"/>
+                    <circle cx="-11.5" cy="5" r="1.3"/><circle cx="-11.5" cy="-4" r="1.3"/>
+                    <circle cx="-6" cy="-10.5" r="1.3"/>
+                </g>
+            </g>
+
+            <!-- STYLE 1 FULL BRANCH: Ice-Blue Cherry Blossom Branch with Indigo Calyxes & Buds (image_0efa46.png) -->
+            <g id="style1-ice-branch">
+                <!-- Teal-navy branch stems -->
+                <path d="M 90,-75 C 55,-45 25,-15 -5,35 C -20,65 -28,95 -35,125" fill="none" stroke="#1E4E68" stroke-width="4.5" stroke-linecap="round"/>
+                <path d="M 40,-30 C 10,-35 -15,-35 -40,-30" fill="none" stroke="#1E4E68" stroke-width="3" stroke-linecap="round"/>
+                <path d="M 28,-18 C 35,8 48,25 56,42" fill="none" stroke="#1E4E68" stroke-width="2.2" stroke-linecap="round"/>
+                <!-- Purple-indigo calyxes & hanging ice-blue buds -->
+                <path d="M 52,36 C 48,42 52,48 56,46 C 60,48 64,42 58,36 Z" fill="#5B5F97" stroke="#1E4E68" stroke-width="1"/>
+                <ellipse cx="56" cy="51" rx="4.5" ry="7" fill="url(#iceBlueGrad)" stroke="#1E4E68" stroke-width="1"/>
+                <!-- Blossoms along the branch -->
+                <use href="#style1-ice-blossom" transform="translate(-42, -32) scale(0.95)"/>
+                <use href="#style1-ice-blossom" transform="translate(-6, 38) scale(1.05)"/>
+                <use href="#style1-ice-blossom" transform="translate(-35, 118) scale(0.9)"/>
+            </g>
+
+            <!-- STYLE 2: Minimalist Black Ink-Line Sakura Blossom & Branch (image_0efa23.png) -->
+            <g id="style2-ink-blossom">
+                <g fill="#FFFFFF" stroke="#1E293B" stroke-width="1.8" stroke-linejoin="round">
+                    <use href="#notchedSakuraPetal" transform="rotate(0)"/>
+                    <use href="#notchedSakuraPetal" transform="rotate(72)"/>
+                    <use href="#notchedSakuraPetal" transform="rotate(144)"/>
+                    <use href="#notchedSakuraPetal" transform="rotate(216)"/>
+                    <use href="#notchedSakuraPetal" transform="rotate(288)"/>
+                </g>
+                <g stroke="#1E293B" stroke-width="1.5" stroke-linecap="round">
+                    <line x1="-6" y1="0" x2="6" y2="0"/>
+                    <line x1="0" y1="-6" x2="0" y2="6"/>
+                    <line x1="-4.5" y1="-4.5" x2="4.5" y2="4.5"/>
+                    <line x1="-4.5" y1="4.5" x2="4.5" y2="-4.5"/>
+                </g>
+            </g>
+
+            <g id="style2-ink-branch">
+                <path d="M -95,-65 C -45,-30 10,5 75,35" fill="none" stroke="#1E293B" stroke-width="3.2" stroke-linecap="round"/>
+                <path d="M -55,-38 C -30,-10 15,20 55,40" fill="none" stroke="#1E293B" stroke-width="1.8" stroke-linecap="round"/>
+                <use href="#style2-ink-blossom" transform="translate(-45, -18) scale(0.72)"/>
+                <use href="#style2-ink-blossom" transform="translate(-8, -36) scale(0.76)"/>
+                <use href="#style2-ink-blossom" transform="translate(22, 12) scale(0.78)"/>
+                <!-- Drifting ink-line single petals -->
+                <path d="M -25,35 C -32,26 -24,14 -16,22 C -12,26 -18,36 -25,35 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="1.7"/>
+                <path d="M 15,62 C 8,54 18,42 26,48 C 30,54 22,64 15,62 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="1.7"/>
+            </g>
+
+            <!-- STYLE 3: Double-Layered Pink Peony / Cherry Cluster with Sage Leaves & Buds (image_0efa05.png) -->
+            <g id="style3-pink-peony">
+                <!-- Sage Green Leaves with Veins -->
+                <g fill="#C7E5C8" stroke="#B56576" stroke-width="1.5" stroke-linejoin="round">
+                    <path d="M -18,-12 C -32,-38 -24,-62 -10,-72 C 4,-54 2,-30 -6,-12 Z"/>
+                    <path d="M -22,2 C -52,0 -72,14 -82,26 C -60,36 -36,28 -18,14 Z"/>
+                    <path d="M 24,4 C 48,-2 68,12 76,28 C 52,32 34,24 18,14 Z"/>
+                </g>
+                <g stroke="#84A98C" stroke-width="1.3" stroke-linecap="round">
+                    <line x1="-12" y1="-18" x2="-12" y2="-56"/>
+                    <line x1="-26" y1="12" x2="-64" y2="22"/>
+                    <line x1="26" y1="12" x2="58" y2="20"/>
+                </g>
+                <!-- Hanging Pink Buds -->
+                <path d="M 18,22 C 28,36 34,48 38,60" fill="none" stroke="#84A98C" stroke-width="2" stroke-linecap="round"/>
+                <ellipse cx="40" cy="68" rx="9" ry="13" transform="rotate(-12 40 68)" fill="#F9BEC7" stroke="#B56576" stroke-width="1.5"/>
+                <path d="M 32,56 C 36,62 42,62 46,56" fill="#C7E5C8" stroke="#84A98C" stroke-width="1.3"/>
+
+                <!-- Upper-Right Peony Blossom -->
+                <g transform="translate(18, -18) scale(0.95)">
+                    <g fill="url(#peonyOuterGrad)" stroke="#B56576" stroke-width="1.6">
+                        <use href="#notchedSakuraPetal" transform="rotate(15) scale(1.15)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(87) scale(1.15)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(159) scale(1.15)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(231) scale(1.15)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(303) scale(1.15)"/>
+                    </g>
+                    <g fill="url(#peonyInnerGrad)" stroke="#B56576" stroke-width="1.4">
+                        <use href="#notchedSakuraPetal" transform="rotate(50) scale(0.75)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(122) scale(0.75)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(194) scale(0.75)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(266) scale(0.75)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(338) scale(0.75)"/>
+                    </g>
+                    <circle cx="0" cy="0" r="6" fill="#FFF0F3"/>
+                    <g fill="#B56576">
+                        <circle cx="-3" cy="-3" r="1.3"/><circle cx="3" cy="-2" r="1.3"/>
+                        <circle cx="0" cy="3" r="1.3"/><circle cx="-4" cy="2" r="1.3"/><circle cx="4" cy="3" r="1.3"/>
+                    </g>
+                </g>
+
+                <!-- Lower-Left Peony Blossom -->
+                <g transform="translate(-14, 14) scale(1.05)">
+                    <g fill="url(#peonyInnerGrad)" stroke="#B56576" stroke-width="1.6">
+                        <use href="#notchedSakuraPetal" transform="rotate(0) scale(1.15)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(72) scale(1.15)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(144) scale(1.15)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(216) scale(1.15)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(288) scale(1.15)"/>
+                    </g>
+                    <g fill="url(#peonyOuterGrad)" stroke="#B56576" stroke-width="1.4">
+                        <use href="#notchedSakuraPetal" transform="rotate(36) scale(0.74)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(108) scale(0.74)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(180) scale(0.74)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(252) scale(0.74)"/>
+                        <use href="#notchedSakuraPetal" transform="rotate(324) scale(0.74)"/>
+                    </g>
+                    <circle cx="0" cy="0" r="6.5" fill="#F9BEC7" opacity="0.65"/>
+                    <g fill="#B56576">
+                        <circle cx="-3" cy="-2" r="1.3"/><circle cx="3" cy="-3" r="1.3"/>
+                        <circle cx="0" cy="3" r="1.3"/><circle cx="-3" cy="3" r="1.3"/><circle cx="4" cy="2" r="1.3"/>
+                    </g>
+                </g>
+            </g>
+
+            <!-- STYLE 4: Soft Blush-Pink 5-Petal Sakura with Yellow-Green Center & Ink Outline (image_0ef9e7.png) -->
+            <g id="style4-blush-sakura">
+                <g fill="url(#blushSakuraGrad)" stroke="#2B2D42" stroke-width="1.35" stroke-linejoin="round">
+                    <use href="#notchedSakuraPetal" transform="rotate(0)"/>
+                    <use href="#notchedSakuraPetal" transform="rotate(72)"/>
+                    <use href="#notchedSakuraPetal" transform="rotate(144)"/>
+                    <use href="#notchedSakuraPetal" transform="rotate(216)"/>
+                    <use href="#notchedSakuraPetal" transform="rotate(288)"/>
+                </g>
+                <circle cx="0" cy="0" r="5.2" fill="#E9D8A6"/>
+                <g stroke="#2B2D42" stroke-width="1.1" stroke-linecap="round">
+                    <line x1="0" y1="0" x2="0" y2="-7"/>
+                    <line x1="0" y1="0" x2="6" y2="-4"/>
+                    <line x1="0" y1="0" x2="4" y2="6"/>
+                    <line x1="0" y1="0" x2="-4" y2="6"/>
+                    <line x1="0" y1="0" x2="-6" y2="-4"/>
+                </g>
+            </g>
+
+            <!-- Alias #twilightFlower so all card corners render a crisp botanical blossom -->
+            <g id="twilightFlower">
+                <use href="#style4-blush-sakura"/>
+            </g>
+        </defs>
+
+        <!-- Scattered Botanical Clusters in Page Margins & Subtle Geometric Wireframe Shapes -->
+        <use href="#style1-ice-branch" transform="translate(85, 110) scale(0.82)" class="botanical-sway"/>
+        <use href="#style2-ink-branch" transform="translate(1340, 88) scale(0.85)" class="botanical-sway-slow"/>
+        <use href="#style3-pink-peony" transform="translate(1365, 785) scale(0.78)" class="botanical-sway"/>
+        <use href="#style3-pink-peony" transform="translate(75, 800) scale(0.72)" class="botanical-sway-slow"/>
+        <use href="#style4-blush-sakura" transform="translate(1385, 420) scale(0.85)" class="botanical-sway"/>
+        <use href="#style1-ice-blossom" transform="translate(55, 460) scale(0.82)" class="botanical-sway-slow"/>
+
+        <!-- Subtle Wireframe Geometric Shapes (Triangles, Circles, Squares, Crescent Moon) -->
+        <polygon points="1290,260 1308,290 1272,290" fill="none" stroke="#CBD5E1" stroke-width="1.5"/>
+        <rect x="42" y="280" width="22" height="22" rx="4" fill="none" stroke="#CBD5E1" stroke-width="1.5"/>
+        <circle cx="1390" cy="610" r="12" fill="none" stroke="#CBD5E1" stroke-width="1.5"/>
+        <path d="M 55,620 A 14,14 0 1,1 42,642 A 10,10 0 1,0 55,620 Z" fill="none" stroke="#CBD5E1" stroke-width="1.5"/>
+    </svg>
+
+    <!-- ==========================================================================
+         MAIN APPLICATION WRAPPER
+         ========================================================================== -->
+    <div class="app-wrapper">
+
+        <!-- STEP 2: TOP NAVIGATION BAR (HEADER) -->
+        <header class="top-header-bar">
+            <svg class="corner-flower-deco" style="left: -8px; top: -10px; width: 86px; height: 86px;" viewBox="-60 -60 120 120">
+                <use href="#style3-pink-peony" transform="scale(0.65)"/>
+            </svg>
+
+            <div class="brand-right">
+                <div class="square-logo-icon" title="شعار المنصة">
+                    <svg width="46" height="46" viewBox="-40 -40 80 80">
+                        <use href="#style1-ice-blossom"/>
+                    </svg>
+                </div>
+                <div class="brand-title-group">
+                    <h1>منصة الفضاء التفاعلية: فكر، زاوج، شارك</h1>
+                    <p>استراتيجية التعلم التعاوني النشط • مهمة تصميم أول مستوطنة بشرية دائمة على كوكب المريخ</p>
+                </div>
+            </div>
+
+            <button class="rect-modal-btn" onclick="openPyramidModal()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <polygon points="12,3 22,20 2,20"/>
+                </svg>
+                <span>المسميات البديلة والهرم المعرفي</span>
+            </button>
+        </header>
+
+        <!-- ======================================================================
+             5 ILLUSTRATED NAVIGATION TABS (EACH WITH ITS OWN EXPLANATORY PHOTO/SVG)
+             ====================================================================== -->
+        <nav class="illustrated-tabs-nav" aria-label="تبويبات المنصة المستقلة">
+
+            <!-- Tab 1: 5 Educational Videos -->
+            <button class="tab-card-btn active" onclick="openDedicatedTab('tab-videos', this)">
+                <svg class="corner-flower-deco" style="left: -8px; bottom: -8px; width: 42px; height: 42px;" viewBox="-40 -40 80 80">
+                    <use href="#style4-blush-sakura" transform="scale(0.65)"/>
+                </svg>
+                <div class="tab-photo-thumb">
+                    <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
+                        <rect x="6" y="10" width="36" height="26" rx="7" fill="#F0F9FF" stroke="#1E4E68" stroke-width="2"/>
+                        <polygon points="20,17 31,23 20,29" fill="#B56576"/>
+                    </svg>
+                </div>
+                <div class="tab-label-group">
+                    <span class="tab-step-num">التبويب الأول</span>
+                    <span class="tab-main-title">الفيديوهات التعليمية (5 محطات)</span>
+                </div>
+            </button>
+
+            <!-- Tab 2: Interactive Mars Settlement Simulation -->
+            <button class="tab-card-btn" onclick="openDedicatedTab('tab-strategy', this)">
+                <svg class="corner-flower-deco" style="left: -8px; bottom: -8px; width: 42px; height: 42px;" viewBox="-40 -40 80 80">
+                    <use href="#style1-ice-blossom" transform="scale(0.65)"/>
+                </svg>
+                <div class="tab-photo-thumb">
+                    <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
+                        <circle cx="24" cy="24" r="13" fill="#FFF5F7" stroke="#B56576" stroke-width="2"/>
+                        <ellipse cx="24" cy="24" rx="20" ry="6" transform="rotate(-18 24 24)" stroke="#1E4E68" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="tab-label-group">
+                    <span class="tab-step-num">التبويب الثاني</span>
+                    <span class="tab-main-title">مهمة المريخ: فكر • زاوج • شارك</span>
+                </div>
+            </button>
+
+            <!-- Tab 3: Pedagogical Reference & Roles -->
+            <button class="tab-card-btn" onclick="openDedicatedTab('tab-roles', this)">
+                <svg class="corner-flower-deco" style="left: -8px; bottom: -8px; width: 42px; height: 42px;" viewBox="-40 -40 80 80">
+                    <use href="#style2-ink-blossom" transform="scale(0.6)"/>
+                </svg>
+                <div class="tab-photo-thumb">
+                    <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
+                        <polygon points="24,8 40,36 8,36" fill="#F0F9FF" stroke="#1E4E68" stroke-width="2"/>
+                        <line x1="16" y1="22" x2="32" y2="22" stroke="#B56576" stroke-width="2"/>
+                        <line x1="12" y1="29" x2="36" y2="29" stroke="#52796F" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="tab-label-group">
+                    <span class="tab-step-num">التبويب الثالث</span>
+                    <span class="tab-main-title">الدليل المرجعي والأدوار</span>
+                </div>
+            </button>
+
+            <!-- Tab 4: 8-Slide Presentation -->
+            <button class="tab-card-btn" onclick="openDedicatedTab('tab-presentation', this)">
+                <svg class="corner-flower-deco" style="left: -8px; bottom: -8px; width: 42px; height: 42px;" viewBox="-40 -40 80 80">
+                    <use href="#style4-blush-sakura" transform="scale(0.65)"/>
+                </svg>
+                <div class="tab-photo-thumb">
+                    <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
+                        <rect x="7" y="9" width="34" height="24" rx="5" fill="#FFF5F7" stroke="#B56576" stroke-width="2"/>
+                        <line x1="14" y1="17" x2="34" y2="17" stroke="#1E4E68" stroke-width="2"/>
+                        <line x1="14" y1="23" x2="28" y2="23" stroke="#52796F" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="tab-label-group">
+                    <span class="tab-step-num">التبويب الرابع</span>
+                    <span class="tab-main-title">العرض التقديمي (8 شرائح)</span>
+                </div>
+            </button>
+
+            <!-- Tab 5: 14-Question Competition -->
+            <button class="tab-card-btn" onclick="openDedicatedTab('tab-competition', this)">
+                <svg class="corner-flower-deco" style="left: -8px; bottom: -8px; width: 42px; height: 42px;" viewBox="-40 -40 80 80">
+                    <use href="#style1-ice-blossom" transform="scale(0.65)"/>
+                </svg>
+                <div class="tab-photo-thumb">
+                    <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
+                        <path d="M15,12 H33 V22 C33,28 29,32 24,32 C19,32 15,28 15,22 Z" fill="#F0F9FF" stroke="#1E4E68" stroke-width="2"/>
+                        <path d="M18,38 H30 M24,32 V38" stroke="#B56576" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="tab-label-group">
+                    <span class="tab-step-num">التبويب الخامس</span>
+                    <span class="tab-main-title">مسابقة التحدي (14 سؤالاً)</span>
+                </div>
+            </button>
+
+        </nav>
+
+        <!-- ======================================================================
+             STEP 1 & STEP 6: TWO-COLUMN DESKTOP WORKSPACE
+             Right Primary Container (75%) + Left Secondary Reference Panel (25%)
+             ====================================================================== -->
+        <div class="two-column-workspace">
+
+            <!-- RIGHT PRIMARY CONTAINER (75% WIDTH) -->
+            <main class="primary-right-column">
+
+                <!-- ==============================================================
+                     TAB VIEW 1: 5 EDUCATIONAL VIDEO STATIONS
+                     ============================================================== -->
+                <section id="tab-videos" class="tab-view-panel active-view">
+                    <svg class="corner-flower-deco" style="left: -10px; bottom: -10px; width: 110px; height: 110px;" viewBox="-80 -80 160 160">
+                        <use href="#style3-pink-peony" transform="scale(0.8)"/>
+                    </svg>
+
+                    <div class="tab-intro-banner">
+                        <svg class="corner-flower-deco" style="left: 12px; top: -10px; width: 80px; height: 80px;" viewBox="-60 -60 120 120">
+                            <use href="#style1-ice-blossom" transform="scale(0.95)"/>
+                        </svg>
+                        <div class="tab-intro-info">
+                            <div class="tab-intro-illustration">
+                                <svg width="46" height="46" viewBox="0 0 64 64" fill="none">
+                                    <rect x="8" y="14" width="48" height="34" rx="8" fill="#F0F9FF" stroke="#1E4E68" stroke-width="2.2"/>
+                                    <polygon points="27,23 41,31 27,39" fill="#B56576"/>
+                                </svg>
+                            </div>
+                            <div class="tab-intro-text">
+                                <h2>مكتبة الفيديوهات التعليمية المنظمة (5 محطات مرئية)</h2>
+                                <p>شاهد الفيديو التمهيدي الأول، يليه مباشرة الفيديو التمهيدي الثاني، ثم الفيديو التعليمي الشامل، بالإضافة إلى محطتي التطبيق والإثراء.</p>
+                            </div>
+                        </div>
+
+                        <label style="position:relative; z-index:2; display:inline-flex; align-items:center; gap:8px; font-size:0.85rem; font-weight:800; cursor:pointer; color:var(--text-heading); background:#FFFFFF; padding:8px 14px; border-radius:10px; border:1.5px solid var(--border-clean);">
+                            <input type="checkbox" id="auto-chain-videos" checked>
+                            <span>تشغيل تلقائي متسلسل للفيديو الثاني بعد الأول</span>
+                        </label>
+                    </div>
+
+                    <div class="videos-five-grid">
+                        <!-- Video Station 1 -->
+                        <div class="video-card">
+                            <svg class="corner-flower-deco" style="left: -8px; top: -8px; width: 58px; height: 58px;" viewBox="-45 -45 90 90">
+                                <use href="#style1-ice-blossom" transform="scale(0.75)"/>
+                            </svg>
+                            <div class="video-card-top">
+                                <span class="video-step-tag">١. الفيديو التمهيدي الأول (0:15)</span>
+                                <span style="font-size:0.86rem; font-weight:800; color:var(--text-heading);">سؤال العصف الذهني: ما فوائد الحاسوب في التعليم؟</span>
+                            </div>
+                            <div class="video-player-wrapper">
+                                <video id="video-player-1" controls preload="metadata" playsinline src="gemini_generated_video_7973bb9e.mp4">
+                                    متصفحك لا يدعم تشغيل الفيديو.
+                                </video>
+                            </div>
+                            <div class="video-card-footer">
+                                <span>الملف: <code>gemini_generated_video_7973bb9e.mp4</code></span>
+                                <label class="file-attach-label">
+                                    <span>📂 ربط أو رفع ملف فيديو</span>
+                                    <input type="file" accept="video/*" style="display:none;" onchange="attachLocalVideo(event, 'video-player-1', 'overlay-v1')">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Video Station 2 -->
+                        <div class="video-card">
+                            <svg class="corner-flower-deco" style="left: -8px; top: -8px; width: 58px; height: 58px;" viewBox="-45 -45 90 90">
+                                <use href="#style4-blush-sakura" transform="scale(0.75)"/>
+                            </svg>
+                            <div class="video-card-top">
+                                <span class="video-step-tag">٢. الفيديو التمهيدي الثاني (0:10 - يليه مباشرة)</span>
+                                <span style="font-size:0.86rem; font-weight:800; color:var(--text-heading);">خطوات تعميق الفهم: فكر • زاوج • شارك</span>
+                            </div>
+                            <div class="video-player-wrapper">
+                                <video id="video-player-2" controls preload="metadata" playsinline src="gemini_generated_video_9a891227.mp4">
+                                    متصفحك لا يدعم تشغيل الفيديو.
+                                </video>
+                            </div>
+                            <div class="video-card-footer">
+                                <span>الملف: <code>gemini_generated_video_9a891227.mp4</code></span>
+                                <label class="file-attach-label">
+                                    <span>📂 ربط أو رفع ملف فيديو</span>
+                                    <input type="file" accept="video/*" style="display:none;" onchange="attachLocalVideo(event, 'video-player-2', 'overlay-v2')">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Video Station 3 (Featured Full Width) -->
+                        <div class="video-card video-card-featured">
+                            <svg class="corner-flower-deco" style="left: -8px; top: -8px; width: 74px; height: 74px;" viewBox="-65 -65 130 130">
+                                <use href="#style3-pink-peony" transform="scale(0.65)"/>
+                            </svg>
+                            <div class="video-card-top">
+                                <span class="video-step-tag">٣. الفيديو التعليمي الشامل (1:24)</span>
+                                <span style="font-size:0.92rem; font-weight:900; color:var(--text-heading);">الشرح الكامل لتطبيق استراتيجية (فكر، زاوج، شارك) داخل الفصل ومميزاتها التربوية</span>
+                            </div>
+                            <div class="video-player-wrapper" style="max-height: 420px;">
+                                <video id="video-player-3" controls preload="metadata" playsinline src="Video Project.mp4">
+                                    متصفحك لا يدعم تشغيل الفيديو.
+                                </video>
+                            </div>
+                            <div class="video-card-footer">
+                                <span>الملف: <code>Video Project.mp4</code></span>
+                                <label class="file-attach-label">
+                                    <span>📂 ربط أو رفع ملف فيديو</span>
+                                    <input type="file" accept="video/*" style="display:none;" onchange="attachLocalVideo(event, 'video-player-3', 'overlay-v3')">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Video Station 4 -->
+                        <div class="video-card">
+                            <svg class="corner-flower-deco" style="left: -8px; top: -8px; width: 58px; height: 58px;" viewBox="-45 -45 90 90">
+                                <use href="#style2-ink-blossom" transform="scale(0.7)"/>
+                            </svg>
+                            <div class="video-card-top">
+                                <span class="video-step-tag" style="background:var(--bg-soft-blush); color:var(--peony-outline); border-color:var(--border-blush);">٤. المحطة الرابعة (تطبيق صفي)</span>
+                                <span style="font-size:0.86rem; font-weight:800; color:var(--text-heading);">نموذج تطبيقي للمناقشة الثنائية والرباعية</span>
+                            </div>
+                            <div class="video-player-wrapper">
+                                <video id="video-player-4" controls preload="metadata" playsinline></video>
+                                <div class="video-empty-overlay" id="overlay-v4">
+                                    <svg width="54" height="54" viewBox="-45 -45 90 90">
+                                        <use href="#style1-ice-blossom"/>
+                                    </svg>
+                                    <div style="font-weight:900; font-size:0.94rem; color:var(--text-heading);">المحطة الرابعة للفيديو جاهزة للتشغيل</div>
+                                    <p style="font-size:0.82rem; color:var(--text-muted); max-width:300px; font-weight:600;">اضغط على زر "ربط أو رفع ملف فيديو" بالأسفل لاختيار وتشغيل الفيديو الرابع مباشرة.</p>
+                                </div>
+                            </div>
+                            <div class="video-card-footer">
+                                <span>محطة فيديو إضافية (١)</span>
+                                <label class="file-attach-label">
+                                    <span>📂 ربط أو رفع ملف فيديو</span>
+                                    <input type="file" accept="video/*" style="display:none;" onchange="attachLocalVideo(event, 'video-player-4', 'overlay-v4')">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Video Station 5 -->
+                        <div class="video-card">
+                            <svg class="corner-flower-deco" style="left: -8px; top: -8px; width: 58px; height: 58px;" viewBox="-45 -45 90 90">
+                                <use href="#style4-blush-sakura" transform="scale(0.75)"/>
+                            </svg>
+                            <div class="video-card-top">
+                                <span class="video-step-tag" style="background:var(--bg-soft-sage); color:#065F46; border-color:#A7F3D0;">٥. المحطة الخامسة (إثرائي)</span>
+                                <span style="font-size:0.86rem; font-weight:800; color:var(--text-heading);">استكشاف بيئة كوكب المريخ وتحديات الاستيطان</span>
+                            </div>
+                            <div class="video-player-wrapper">
+                                <video id="video-player-5" controls preload="metadata" playsinline></video>
+                                <div class="video-empty-overlay" id="overlay-v5">
+                                    <svg width="54" height="54" viewBox="-65 -65 130 130">
+                                        <use href="#style3-pink-peony" transform="scale(0.65)"/>
+                                    </svg>
+                                    <div style="font-weight:900; font-size:0.94rem; color:var(--text-heading);">المحطة الخامسة للفيديو جاهزة للتشغيل</div>
+                                    <p style="font-size:0.82rem; color:var(--text-muted); max-width:300px; font-weight:600;">اضغط على زر "ربط أو رفع ملف فيديو" بالأسفل لاختيار وتشغيل الفيديو الخامس مباشرة.</p>
+                                </div>
+                            </div>
+                            <div class="video-card-footer">
+                                <span>محطة فيديو إضافية (٢)</span>
+                                <label class="file-attach-label">
+                                    <span>📂 ربط أو رفع ملف فيديو</span>
+                                    <input type="file" accept="video/*" style="display:none;" onchange="attachLocalVideo(event, 'video-player-5', 'overlay-v5')">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==============================================================
+                     TAB VIEW 2: STEP 3 (POLYGON HERO) + STEP 4 (3 STRATEGY CARDS)
+                     ============================================================== -->
+                <section id="tab-strategy" class="tab-view-panel">
+                    <svg class="corner-flower-deco" style="left: -10px; bottom: -10px; width: 110px; height: 110px;" viewBox="-80 -80 160 160">
+                        <use href="#style3-pink-peony" transform="scale(0.8)"/>
+                    </svg>
+
+                    <!-- STEP 3: HERO SECTION WITH GEOMETRIC POLYGON FRAME -->
+                    <div class="hero-polygon-frame">
+                        <div class="mars-square-badge" title="مسبار وكوكب المريخ">
+                            <svg width="38" height="38" viewBox="0 0 64 64" fill="none">
+                                <circle cx="32" cy="32" r="16" fill="#FFF5F7" stroke="#B56576" stroke-width="2.5"/>
+                                <ellipse cx="32" cy="32" rx="26" ry="8" transform="rotate(-18 32 32)" stroke="#1E4E68" stroke-width="2.2"/>
+                                <circle cx="26" cy="28" r="3.5" fill="#1E4E68"/>
+                            </svg>
+                        </div>
+
+                        <h2 style="font-size:1.22rem; font-weight:900; color:var(--text-heading);">
+                            سؤال المهمة العلمية المفتوح (يتقبل إجابات متعددة صحيحة)
+                        </h2>
+
+                        <div class="open-question-box">
+                            "أنت تقود فريقا علميا لتصميم أول مستوطنة بشرية دائمة على كوكب المريخ. حلل ثلاثة تحديات فيزيائية أو بيئية تهدد بقاء البشر هناك، واقترح حلولا علمية مبتكرة وغير تقليدية لمعالجتها مع تقديم مبرراتك المنطقية."
+                        </div>
+
+                        <div class="hero-controls-row">
+                            <button class="primary-action-btn" onclick="toggleMainTimer()">
+                                <span>⏱️ بدء جلسة التفكير والتحكم بالوقت</span>
+                            </button>
+
+                            <div class="teacher-timer-box">
+                                <span style="font-size:0.84rem; font-weight:800; color:var(--text-heading);">مؤقت المعلم للمراحل:</span>
+                                <select id="phase-timer-select" class="clean-select" onchange="changePhaseTimerDuration()">
+                                    <option value="120">مرحلة فكر (02:00)</option>
+                                    <option value="180">مرحلة زاوج (03:00)</option>
+                                    <option value="240">مرحلة شارك (04:00)</option>
+                                </select>
+                                <div id="main-timer-display" class="timer-digits">02:00</div>
+                                <button class="clean-btn-sm" onclick="toggleMainTimer()" id="main-timer-btn">تشغيل</button>
+                                <button class="clean-btn-sm" onclick="resetMainTimer()">إعادة</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Mars Challenge Selector (3 Physical/Environmental Challenges) -->
+                    <div class="challenge-selector-box">
+                        <div class="challenge-selector-title">
+                            <span>اختر أحد محاور التحديات الثلاثة على المريخ لإدراجه في تحليلك أو ادمجها معاً:</span>
+                        </div>
+                        <div class="challenges-three-grid">
+                            <div class="challenge-card selected-challenge" id="chal-card-0" onclick="selectMarsChallenge(0)">
+                                <svg class="corner-flower-deco" style="left: -6px; bottom: -6px; width: 46px; height: 46px;" viewBox="-40 -40 80 80">
+                                    <use href="#style1-ice-blossom" transform="scale(0.6)"/>
+                                </svg>
+                                <div class="challenge-card-head">
+                                    <div class="challenge-icon-box">☀️</div>
+                                    <h4>١. الإشعاعات الكونية والرياح الشمسية</h4>
+                                </div>
+                                <p>يفتقر المريخ إلى غلاف مغناطيسي قوي، مما يعرض المستوطنين لإشعاعات كونية قاتلة تتطلب دروعاً واقية مبتكرة.</p>
+                            </div>
+
+                            <div class="challenge-card" id="chal-card-1" onclick="selectMarsChallenge(1)">
+                                <svg class="corner-flower-deco" style="left: -6px; bottom: -6px; width: 46px; height: 46px;" viewBox="-40 -40 80 80">
+                                    <use href="#style4-blush-sakura" transform="scale(0.6)"/>
+                                </svg>
+                                <div class="challenge-card-head">
+                                    <div class="challenge-icon-box">💨</div>
+                                    <h4>٢. الضغط الجوي المنخفض وانعدام الأكسجين</h4>
+                                </div>
+                                <p>الضغط الجوي يعادل 0.6% فقط من الأرض و95% منه ثاني أكسيد الكربون، مع تربة تحتوي على أملاح البيركلورات السامة.</p>
+                            </div>
+
+                            <div class="challenge-card" id="chal-card-2" onclick="selectMarsChallenge(2)">
+                                <svg class="corner-flower-deco" style="left: -6px; bottom: -6px; width: 46px; height: 46px;" viewBox="-40 -40 80 80">
+                                    <use href="#style2-ink-blossom" transform="scale(0.6)"/>
+                                </svg>
+                                <div class="challenge-card-head">
+                                    <div class="challenge-icon-box">⚡</div>
+                                    <h4>٣. العواصف الغبارية والطاقة والمياه</h4>
+                                </div>
+                                <p>عواصف رملية تحجب الشمس لأسابيع وبرودة تصل إلى -63°C، مما يستلزم مصادر طاقة نووية مصغرة واستخراج الجليد الجوفي.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fishbowl-Inspired Interactive Visual Classroom Map -->
+                    <div class="fishbowl-map-banner">
+                        <div>
+                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+                                <span style="font-size:0.96rem; font-weight:900; color:var(--text-heading);">خريطة التفاعل الصفي المباشر (محاكاة بصرية)</span>
+                                <span id="sim-stage-badge" style="font-size:0.78rem; font-weight:800; background:var(--bg-soft-ice); color:var(--ice-blue-deep); padding:3px 11px; border-radius:99px; border:1px solid var(--border-ice);">المرحلة ١: تفكير فردي</span>
+                            </div>
+                            <p id="classroom-stage-caption" style="font-size:0.86rem; font-weight:700; color:var(--text-body); margin-bottom:10px;">
+                                كل طالب يفكر بمفرده في صمت تام لتوليد حلول أصيلة لمستوطنة المريخ دون تجول أو رفع أيدٍ.
+                            </p>
+                            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                                <button class="clean-btn-sm" id="step-btn-1" onclick="switchSimulationStage(1)">١. عرض خريطة (فكر)</button>
+                                <button class="clean-btn-sm" id="step-btn-2" onclick="switchSimulationStage(2)">٢. عرض خريطة (زاوج)</button>
+                                <button class="clean-btn-sm" id="step-btn-3" onclick="switchSimulationStage(3)">٣. عرض خريطة (شارك)</button>
+                            </div>
+                        </div>
+
+                        <div class="classroom-svg-stage" id="classroom-visual-map"></div>
+                    </div>
+
+                    <!-- STEP 4: THE THREE PRIMARY STRATEGY CARDS (MIDDLE ROW: RIGHT, CENTER, LEFT) -->
+                    <div class="three-strategy-cards-row">
+
+                        <!-- CARD 1 (Right): Phase 1: Think (فكر - THINK Yourself) -->
+                        <div class="strategy-stage-card active-stage-focus" id="sim-pane-1">
+                            <svg class="corner-flower-deco" style="left: -8px; top: -8px; width: 54px; height: 54px;" viewBox="-45 -45 90 90">
+                                <use href="#style1-ice-blossom" transform="scale(0.7)"/>
+                            </svg>
+                            <div class="stage-card-top-center">
+                                <div class="stage-square-icon">١</div>
+                                <h3>المرحلة الأولى: فكر (THINK Yourself)</h3>
+                                <span style="font-size:0.8rem; font-weight:800; color:var(--peony-outline);">تذكر: للسؤال أكثر من إجابة علمية صحيحة</span>
+                            </div>
+
+                            <div class="rules-status-banner">
+                                <strong>ضوابط القاعة في مرحلة (فكر):</strong><br>
+                                • ممنوع التجول داخل الفصل أو التحدث مع الآخرين.<br>
+                                • ممنوع رفع الأيدي لمنع التشتت والضوضاء.<br>
+                                • تفكير فردي صامت للوصول لإجابة منطقية بمبررات.
+                            </div>
+
+                            <div>
+                                <label class="field-label" for="think-main-input">مساحة التفكير الفردي الصامت (تحليل التحديات والحلول):</label>
+                                <textarea id="think-main-input" class="clean-textarea" rows="4">١. الإشعاع الكوني: تغطية المساكن بطبقة من تربة المريخ (الريجوليث) والجليد المائي لعزل الإشعاع.
+٢. سمية البيركلورات وانعدام الأكسجين: معالجة التربة ببكتيريا حيوية واستخدام جهاز MOXIE لتحويل CO2 إلى أكسجين.
+٣. العواصف الغبارية: استخدام مفاعلات Kilopower النووية المصغرة لضمان استقرار الطاقة.</textarea>
+                            </div>
+
+                            <div>
+                                <label class="field-label" for="think-early-input">مبررات إضافية للطلاب المنتهين مبكرا:</label>
+                                <input type="text" id="think-early-input" class="clean-input" value="الماء غني بذرات الهيدروجين الفعالة في امتصاص الإشعاع الكوني دون إنتاج أشعة ثانوية خطيرة.">
+                            </div>
+
+                            <button class="primary-action-btn" id="btn-save-think" onclick="saveThinkAndUnlockPair()">
+                                <span>حفظ الإجابة الفردية وفتح مرحلة (زاوج) ⬅</span>
+                            </button>
+                        </div>
+
+                        <!-- CARD 2 (Center): Phase 2: Pair (زاوج - PAIR With a partner) -->
+                        <div class="strategy-stage-card" id="sim-pane-2">
+                            <svg class="corner-flower-deco" style="left: -8px; top: -8px; width: 54px; height: 54px;" viewBox="-45 -45 90 90">
+                                <use href="#style4-blush-sakura" transform="scale(0.7)"/>
+                            </svg>
+                            <div class="stage-card-top-center">
+                                <div class="stage-square-icon">٢</div>
+                                <h3>المرحلة الثانية: زاوج (PAIR With a partner)</h3>
+                                <span style="font-size:0.8rem; font-weight:800; color:var(--ice-blue-deep);">تشارك مع الزميل الجالس بجوارك مباشرة حفاظاً على الهدوء</span>
+                            </div>
+
+                            <div>
+                                <label class="field-label" for="partner-persona-select">اختر الزميل الجالس بجوارك للمقارنة:</label>
+                                <select id="partner-persona-select" class="clean-select" style="width:100%;" onchange="changePartnerPersona()">
+                                    <option value="0">الزميل المجاور ١: سارة (تركيز على الإشعاع والضغط الجوي)</option>
+                                    <option value="1">الزميل المجاور ٢: عمر (تركيز على القباب الثلجية والطاقة)</option>
+                                </select>
+                            </div>
+
+                            <div class="compare-box">
+                                <strong>إجابتك الفردية المحفوظة:</strong>
+                                <span id="pair-my-answer-preview">قباب محمية بالجليد والريجوليث + معالجة البيركلورات حيوياً وتقنية MOXIE + مفاعلات Kilopower.</span>
+                            </div>
+
+                            <div class="compare-box">
+                                <strong id="partner-box-title">إجابة الزميل المجاور (سارة):</strong>
+                                <span id="partner-box-text">بناء المستوطنة داخل أنابيب الحمم البركانية الجوفية للحماية الطبيعية من الإشعاع والنيازك الدقيقة وانخفاض الضغط الجوي.</span>
+                            </div>
+
+                            <div>
+                                <label class="field-label" for="pair-combined-input">الإجابة المدمجة بعد المقارنة وتبادل الأفكار:</label>
+                                <textarea id="pair-combined-input" class="clean-textarea" rows="3">الجمع بين السكن داخل أنابيب الحمم البركانية الجوفية للحماية من الإشعاع، وإنشاء قباب زراعية سطحية محمية بدرع جليدي ومزودة بمفاعلات Kilopower وبكتيريا منقية للتربة.</textarea>
+                            </div>
+
+                            <div class="radio-group-clean">
+                                <label>
+                                    <input type="radio" name="pairAgreement" value="agreed" checked>
+                                    <span>✅ توصلنا إلى اتفاق (رأي واحد)</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="pairAgreement" value="disagreed">
+                                    <span>⚖️ لم نتفق (وجهات نظر متعددة)</span>
+                                </label>
+                            </div>
+
+                            <button type="button" class="quartet-btn" id="btn-quartet-toggle" onclick="toggleQuartetMode()">
+                                ➕ توسيع إلى فريق رباعي
+                            </button>
+
+                            <div class="quartet-note" id="quartet-panel-box">
+                                <strong>نقاش الفريق الرباعي (دمج زوجين - ٤ طلاب):</strong> تم تعديل الأفكار والاتفاق على حل موحد يشمل استخراج الجليد الجوفي بالروبوتات قبل عرضه على الفصل.
+                            </div>
+
+                            <button class="primary-action-btn" onclick="approvePairAndFocusShare()">
+                                <span>اعتماد إجابة الزوج والانتقال إلى (شارك) ⬅</span>
+                            </button>
+                        </div>
+
+                        <!-- CARD 3 (Left): Phase 3: Share (شارك - Whole class) -->
+                        <div class="strategy-stage-card" id="sim-pane-3">
+                            <svg class="corner-flower-deco" style="left: -8px; top: -8px; width: 54px; height: 54px;" viewBox="-45 -45 90 90">
+                                <use href="#style2-ink-blossom" transform="scale(0.68)"/>
+                            </svg>
+                            <div class="stage-card-top-center">
+                                <div class="stage-square-icon">٣</div>
+                                <h3>المرحلة الثالثة: شارك (Whole class)</h3>
+                                <span style="font-size:0.8rem; font-weight:800; color:#065F46;">عرض الحل النهائي والمبررات أمام الفصل بأكمله</span>
+                            </div>
+
+                            <button class="primary-action-btn" onclick="publishToClassBoard()">
+                                <span>📢 نشر الحل والمبررات والأدلة على سبورة الفصل</span>
+                            </button>
+
+                            <div class="class-board-panel">
+                                <h4>📋 سبورة الفصل الذكية:</h4>
+                                <p id="board-published-text">
+                                    <strong>الثنائي المتحدث:</strong> إنشاء المستوطنة داخل أنابيب الحمم البركانية مع قباب زراعية بدرع جليدي مائي، ومفاعلات Kilopower، وتقنية MOXIE لتوليد الأكسجين. (الحالة: رأي واحد متفق عليه).
+                                </p>
+                            </div>
+
+                            <div>
+                                <span class="field-label">💬 استفسارات زملاء الفصل ورد الفريق بالبراهين العلمية:</span>
+                                <div class="qa-feed" id="qa-feed-list">
+                                    <div class="qa-card">
+                                        <div class="q-line">سؤال زميل: من أين نحصل على المياه للدرع الجليدي على المريخ؟</div>
+                                        <div class="a-line">البرهان العلمي: توجد خزانات ضخمة من الجليد المائي تحت القطبين وتحت السطح أكدتها مسابير وكالة ناسا.</div>
+                                    </div>
+                                </div>
+
+                                <div style="display:flex; flex-direction:column; gap:7px; margin-top:8px;">
+                                    <input type="text" id="new-class-question" class="clean-input" placeholder="اكتب سؤال أو استفسار أحد الزملاء...">
+                                    <input type="text" id="new-pair-proof" class="clean-input" placeholder="رد الفريق المتحدث بالبرهان والدليل العلمي...">
+                                    <button class="clean-btn-sm" style="width:100%; background:var(--bg-soft-ice); border-color:var(--ice-blue-deep);" onclick="addClassQA()">+ إضافة السؤال والبرهان إلى سبورة النقاش</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- ==============================================================
+                     TAB VIEW 3: DETAILED PEDAGOGICAL REFERENCE & ROLES
+                     ============================================================== -->
+                <section id="tab-roles" class="tab-view-panel">
+                    <svg class="corner-flower-deco" style="left: -10px; bottom: -10px; width: 110px; height: 110px;" viewBox="-80 -80 160 160">
+                        <use href="#style3-pink-peony" transform="scale(0.8)"/>
+                    </svg>
+
+                    <div class="tab-intro-banner">
+                        <div class="tab-intro-info">
+                            <div class="tab-intro-illustration">
+                                <svg width="48" height="48" viewBox="0 0 64 64" fill="none">
+                                    <polygon points="32,10 54,50 10,50" fill="#F0F9FF" stroke="#1E4E68" stroke-width="2.2"/>
+                                    <circle cx="32" cy="26" r="4" fill="#B56576"/>
+                                </svg>
+                            </div>
+                            <div class="tab-intro-text">
+                                <h2>الدليل المرجعي التربوي وأدوار المعلم والمتعلم</h2>
+                                <p>تفصيل كامل للمسميات البديلة الأربعة، وتدرج الهرم المعرفي، ومهام كل من المعلم والمتعلم داخل القاعة.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="role-card">
+                        <svg class="corner-flower-deco" style="left: -8px; top: -8px; width: 58px; height: 58px;" viewBox="-45 -45 90 90">
+                            <use href="#style1-ice-blossom" transform="scale(0.7)"/>
+                        </svg>
+                        <div class="role-card-head">
+                            <div class="role-square-icon">أ</div>
+                            <h4 style="font-size:1.05rem; font-weight:900; color:var(--text-heading);">دور المعلم في استراتيجية (فكر - زاوج - شارك)</h4>
+                        </div>
+                        <ul class="role-list">
+                            <li>١. طرح سؤال أو مشكلة ذات نهايات مفتوحة لاستثارة تفكير التلاميذ في مشكلة أو ظاهرة معينة.</li>
+                            <li>٢. منح التلاميذ فرصة ووقتاً كافياً للتفكير الفردي في الإجابة.</li>
+                            <li>٣. تجميع التلاميذ في ثنائيات لمناقشة الإجابة التي فكروا فيها.</li>
+                            <li>٤. الإشراف على ما يدور داخل الصف وإرشاد وتوجيه التلاميذ نحو الإجابة الصحيحة.</li>
+                            <li>٥. توزيع التلاميذ إلى مجموعات للنقاش التعاوني.</li>
+                            <li>٦. التحكم في المدة الزمنية لكل مرحلة وتخصيص الوقت الكافي لكل مرحلة.</li>
+                        </ul>
+                    </div>
+
+                    <div class="role-card">
+                        <svg class="corner-flower-deco" style="left: -8px; top: -8px; width: 58px; height: 58px;" viewBox="-45 -45 90 90">
+                            <use href="#style4-blush-sakura" transform="scale(0.7)"/>
+                        </svg>
+                        <div class="role-card-head">
+                            <div class="role-square-icon">ب</div>
+                            <h4 style="font-size:1.05rem; font-weight:900; color:var(--text-heading);">دور المتعلم في استراتيجية (فكر - زاوج - شارك)</h4>
+                        </div>
+                        <ul class="role-list" style="grid-template-columns:1fr;">
+                            <li>١. إيجابي نشط يبادر بالتعلم والبحث عن المعلومة بنفسه.</li>
+                            <li>٢. يحلل ويفسر الظواهر ويبين الأسباب لأي قضية أو مشكلة تواجهه.</li>
+                            <li>٣. يبذل مجهوداً عقلياً لحل المشكلة أو تفسير الظاهرة العلمية.</li>
+                        </ul>
+                    </div>
+
+                    <div class="role-card" style="margin-bottom:0;">
+                        <svg class="corner-flower-deco" style="left: -8px; top: -8px; width: 58px; height: 58px;" viewBox="-45 -45 90 90">
+                            <use href="#style2-ink-blossom" transform="scale(0.68)"/>
+                        </svg>
+                        <div class="role-card-head">
+                            <div class="role-square-icon">ج</div>
+                            <h4 style="font-size:1.05rem; font-weight:900; color:var(--text-heading);">المسميات البديلة الأربعة للاستراتيجية</h4>
+                        </div>
+                        <ul class="role-list">
+                            <li>١. استراتيجية الأسئلة التعاونية (Cooperative Questioning Strategy).</li>
+                            <li>٢. استراتيجية التوجه نحو الزميل أو الشريك (Turn to a Neighbor or Partner Strategy).</li>
+                            <li>٣. استراتيجية التفكير الفردي ثم الثنائي فالجماعي (Individual-Pair-Group Thinking Strategy).</li>
+                            <li>٤. استراتيجية التفكير الهرمي (Pyramid Thinking Strategy: الفردي قاعدة، الثنائي وسط، الجماعي قمة).</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ==============================================================
+                     TAB VIEW 4: PRESENTATION SLIDES VIEWER (ALL 8 SLIDES)
+                     ============================================================== -->
+                <section id="tab-presentation" class="tab-view-panel">
+                    <svg class="corner-flower-deco" style="left: -10px; bottom: -10px; width: 110px; height: 110px;" viewBox="-80 -80 160 160">
+                        <use href="#style3-pink-peony" transform="scale(0.8)"/>
+                    </svg>
+
+                    <div class="tab-intro-banner">
+                        <div class="tab-intro-info">
+                            <div class="tab-intro-illustration">
+                                <svg width="48" height="48" viewBox="0 0 64 64" fill="none">
+                                    <rect x="10" y="12" width="44" height="32" rx="6" fill="#FFF5F7" stroke="#B56576" stroke-width="2.2"/>
+                                    <line x1="18" y1="22" x2="46" y2="22" stroke="#1E4E68" stroke-width="2.2"/>
+                                    <line x1="18" y1="30" x2="36" y2="30" stroke="#52796F" stroke-width="2.2"/>
+                                </svg>
+                            </div>
+                            <div class="tab-intro-text">
+                                <h2>العرض التقديمي المصور الكامل (8 شرائح واضحة ومنظمة)</h2>
+                                <p>استعرض شرائح العرض التقديمي شريحة بشريحة أو اعرض الشرائح الـ 8 كاملة معاً بخط واضح وعالي التباين.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-nav-bar">
+                        <div style="display:flex; gap:8px;">
+                            <button class="clean-btn-sm" onclick="prevPptSlide()">➡ الشريحة السابقة</button>
+                            <button class="clean-btn-sm" onclick="nextPptSlide()">الشريحة التالية ⬅</button>
+                        </div>
+
+                        <div class="slide-pills-wrap" id="ppt-dots-container"></div>
+
+                        <button class="clean-btn-sm" id="toggle-all-slides-btn" onclick="toggleAllPptSlidesView()">
+                            عرض الشرائح الـ 8 معاً
+                        </button>
+                    </div>
+
+                    <div id="ppt-single-view-container"></div>
+                    <div id="ppt-all-slides-container" class="hidden-sec" style="display:flex; flex-direction:column; gap:18px;"></div>
+                </section>
+
+                <!-- ==============================================================
+                     TAB VIEW 5: 14-QUESTION 2-TEAM COMPETITION
+                     ============================================================== -->
+                <section id="tab-competition" class="tab-view-panel">
+                    <svg class="corner-flower-deco" style="left: -10px; bottom: -10px; width: 110px; height: 110px;" viewBox="-80 -80 160 160">
+                        <use href="#style3-pink-peony" transform="scale(0.8)"/>
+                    </svg>
+
+                    <div class="tab-intro-banner">
+                        <div class="tab-intro-info">
+                            <div class="tab-intro-illustration">
+                                <svg width="48" height="48" viewBox="0 0 64 64" fill="none">
+                                    <path d="M20,14 H44 V28 C44,36 38,42 32,42 C26,42 20,36 20,28 Z" fill="#F0F9FF" stroke="#1E4E68" stroke-width="2.2"/>
+                                    <path d="M24,50 H40 M32,42 V50" stroke="#B56576" stroke-width="2.2"/>
+                                </svg>
+                            </div>
+                            <div class="tab-intro-text">
+                                <h2>مسابقة تحدي استراتيجية (فكر، زاوج، شارك)</h2>
+                                <p>منافسة تفاعلية بين فريقين مكونة من 14 سؤالاً • 10 درجات للإجابة الصحيحة و5 درجات خطف للفريق الآخر.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Setup Screen -->
+                    <div id="comp-setup-screen" class="quiz-card-inner">
+                        <h3 style="text-align:center; font-size:1.18rem; font-weight:900; color:var(--text-heading); margin-bottom:16px;">
+                            🎯 إعداد فريقي المسابقة
+                        </h3>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px;">
+                            <div>
+                                <label class="field-label">اسم الفريق الأول:</label>
+                                <input type="text" id="comp-team1-input" class="clean-input" value="الفريق الأول">
+                            </div>
+                            <div>
+                                <label class="field-label">اسم الفريق الثاني:</label>
+                                <input type="text" id="comp-team2-input" class="clean-input" value="الفريق الثاني">
+                            </div>
+                        </div>
+                        <button class="primary-action-btn" style="width:100%;" onclick="startCompetitionGame()">
+                            بدء المسابقة التفاعلية (14 سؤالاً) 🚀
+                        </button>
+                    </div>
+
+                    <!-- Game Screen -->
+                    <div id="comp-game-screen" class="quiz-card-inner hidden-sec">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                            <span id="comp-turn-badge" style="background:var(--bg-soft-ice); color:var(--ice-blue-deep); border:1.5px solid var(--border-ice); padding:4px 14px; border-radius:99px; font-weight:900; font-size:0.86rem;">
+                                دور: الفريق الأول
+                            </span>
+                            <div id="comp-timer-pill" style="background:var(--bg-soft-blush); color:#881337; border:1.5px solid var(--border-blush); padding:4px 14px; border-radius:99px; font-weight:900; font-size:0.86rem;">
+                                ⏱️ الوقت المتبقي: <span id="comp-time-left">30</span> ثانية
+                            </div>
+                        </div>
+
+                        <div class="quiz-scoreboard">
+                            <div class="quiz-team-box active-turn" id="comp-card-t1">
+                                <div id="comp-name-t1" style="font-weight:900; font-size:0.95rem; color:var(--text-heading);">الفريق الأول</div>
+                                <div id="comp-score-t1" class="quiz-score-val">0</div>
+                            </div>
+                            <div class="quiz-team-box" id="comp-card-t2">
+                                <div id="comp-name-t2" style="font-weight:900; font-size:0.95rem; color:var(--text-heading);">الفريق الثاني</div>
+                                <div id="comp-score-t2" class="quiz-score-val">0</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:14px;">
+                            <div id="comp-q-progress" style="font-size:0.82rem; font-weight:800; color:var(--peony-outline); margin-bottom:6px;">
+                                السؤال 1 من 14
+                            </div>
+                            <h3 id="comp-q-text" style="font-size:1.08rem; font-weight:900; margin-bottom:14px; color:var(--text-heading);">
+                                جاري تحميل السؤال...
+                            </h3>
+                            <div id="comp-options-list"></div>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-size:0.8rem; font-weight:700; color:var(--text-muted);">10 درجات للإجابة الصحيحة | 5 درجات عند خطف النقاط</span>
+                            <button id="comp-next-btn" class="primary-action-btn hidden-sec" onclick="nextCompetitionQuestion()">
+                                السؤال التالي ⬅
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+
+            <!-- ==================================================================
+                 STEP 6: LEFT SECONDARY PANEL (25% WIDTH PEDAGOGICAL REFERENCE)
+                 ================================================================== -->
+            <aside class="secondary-left-sidebar" aria-label="المرجع التربوي والأدوار">
+                <svg class="corner-flower-deco" style="left: -10px; top: -10px; width: 70px; height: 70px;" viewBox="-50 -50 100 100">
+                    <use href="#style1-ice-blossom" transform="scale(0.8)"/>
+                </svg>
+
+                <div class="sidebar-header-title">
+                    <span>📐 المرجع التربوي والأدوار</span>
+                </div>
+
+                <!-- 1. Top Vertical Cards: Pyramid Progression -->
+                <div>
+                    <div style="font-size:0.82rem; font-weight:800; color:var(--text-muted); margin-bottom:8px;">
+                        ١. تدرج الهرم المعرفي للاستراتيجية:
+                    </div>
+                    <div class="pyramid-three-cards">
+                        <div class="narrow-v-card">
+                            <div class="v-square">١</div>
+                            <h4>فكر</h4>
+                            <span>قاعدة الهرم</span>
+                            <span>تفكير فردي</span>
+                        </div>
+                        <div class="narrow-v-card">
+                            <div class="v-square">٢</div>
+                            <h4>زاوج</h4>
+                            <span>وسط الهرم</span>
+                            <span>نقاش ثنائي</span>
+                        </div>
+                        <div class="narrow-v-card">
+                            <div class="v-square">٣</div>
+                            <h4>شارك</h4>
+                            <span>قمة الهرم</span>
+                            <span>مشاركة الفصل</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Geometric Divider: Square, Triangle, Square -->
+                <div class="geometric-divider-row" title="فاصل هندسي">
+                    <svg width="18" height="18" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="#1E4E68" stroke-width="2"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12,3 22,20 2,20" fill="none" stroke="#B56576" stroke-width="2"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="#1E4E68" stroke-width="2"/></svg>
+                </div>
+
+                <!-- 3. Teacher & Learner Roles Block -->
+                <div class="sidebar-role-box">
+                    <h4>أ. دور المعلم (6 مهام أساسية):</h4>
+                    <ul class="sidebar-role-list">
+                        <li>١. طرح سؤال مفتوح النهايات لاستثارة التفكير.</li>
+                        <li>٢. منح وقت كافٍ للتفكير الفردي الصامت.</li>
+                        <li>٣. تجميع الطلاب في ثنائيات متجاورة.</li>
+                        <li>٤. الإشراف والتوجيه نحو الإجابة الصحيحة.</li>
+                        <li>٥. توزيع الطلاب إلى مجموعات نقاش.</li>
+                        <li>٦. ضبط المدة الزمنية لكل مرحلة.</li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-role-box">
+                    <h4>ب. دور المتعلم (3 مهام أساسية):</h4>
+                    <ul class="sidebar-role-list">
+                        <li>١. إيجابي نشط يبادر بالتعلم والبحث عن المعلومة.</li>
+                        <li>٢. يحلل ويفسر الظواهر ويبين أسباب المشكلات.</li>
+                        <li>٣. يبذل مجهوداً عقلياً لحل المشكلة العلمية.</li>
+                    </ul>
+                </div>
+
+                <!-- 4. Bottom Summary Bar & 3 Square Action Buttons -->
+                <div class="sidebar-summary-footer">
+                    <div class="summary-lines">
+                        <span>• تعلم تعاوني نشط يقلل الرهبة والخوف.</span>
+                        <span>• ينمي مهارات التفكير العليا وبناء الحجج.</span>
+                        <span>• يضمن مشاركة جميع الطلاب بثقة.</span>
+                    </div>
+                    <div class="sidebar-three-sq-btns">
+                        <button class="sq-action-btn" onclick="resetEntireWorkspace()" title="إعادة ضبط مساحة العمل">
+                            <span>🔄</span>
+                            <span>إعادة ضبط</span>
+                        </button>
+                        <button class="sq-action-btn" onclick="exportClassBoardFile()" title="تصدير سبورة الفصل">
+                            <span>📥</span>
+                            <span>تصدير</span>
+                        </button>
+                        <button class="sq-action-btn" id="btn-sound-toggle" onclick="toggleSoundAlerts()" title="تبديل التنبيهات الصوتية">
+                            <span>🔊</span>
+                            <span>الصوت</span>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================================================================
+         MODAL: THE 4 ALTERNATIVE NAMES & PYRAMID THINKING STRATEGY
+         ========================================================================== -->
+    <div class="modal-backdrop" id="pyramid-modal" onclick="if(event.target === this) closePyramidModal()">
+        <div class="modal-window">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px dashed var(--border-clean); padding-bottom:12px;">
+                <h2 style="font-size:1.12rem; font-weight:900; color:var(--text-heading);">المسميات البديلة الأربعة والهرم المعرفي للاستراتيجية</h2>
+                <button class="clean-btn-sm" onclick="closePyramidModal()">إغلاق ✕</button>
+            </div>
+
+            <div class="alt-names-grid">
+                <div class="alt-card">
+                    <h4>١. استراتيجية الأسئلة التعاونية</h4>
+                    <p>Cooperative Questioning Strategy: لاعتمادها على طرح سؤال مفتوح يتعاون المتعلمون في بحثه.</p>
+                </div>
+                <div class="alt-card">
+                    <h4>٢. استراتيجية التوجه نحو الزميل أو الشريك</h4>
+                    <p>Turn to a Neighbor or Partner Strategy: لأن الطالب يناقش الزميل الجالس بجواره مباشرة.</p>
+                </div>
+                <div class="alt-card">
+                    <h4>٣. استراتيجية التفكير الفردي ثم الثنائي فالجماعي</h4>
+                    <p>Individual-Pair-Group Thinking Strategy: لتدرجها المنظم من الفرد إلى الزوج ثم الجماعة.</p>
+                </div>
+                <div class="alt-card">
+                    <h4>٤. استراتيجية التفكير الهرمي</h4>
+                    <p>Pyramid Thinking Strategy: حيث التفكير الفردي هو القاعدة، والمزاوجة الوسط، والمشاركة القمة.</p>
+                </div>
+            </div>
+
+            <div style="background:var(--bg-soft-slate); border:1.5px solid var(--border-clean); border-radius:var(--radius-md); padding:16px; text-align:center;">
+                <h3 style="font-size:0.95rem; font-weight:900; color:var(--text-heading); margin-bottom:10px;">مخطط استراتيجية التفكير الهرمي (Pyramid Thinking Strategy)</h3>
+                <svg width="100%" height="180" viewBox="0 0 520 180" style="max-width:480px;">
+                    <polygon points="260,10 335,62 185,62" fill="#D1FAE5" stroke="#065F46" stroke-width="2"/>
+                    <text x="260" y="46" text-anchor="middle" fill="#065F46" font-size="12" font-weight="800">٣. القمة: شارك (الفصل كله)</text>
+
+                    <polygon points="180,68 340,68 400,118 120,118" fill="#FFF5F7" stroke="#B56576" stroke-width="2"/>
+                    <text x="260" y="98" text-anchor="middle" fill="#881337" font-size="13" font-weight="800">٢. الوسط: زاوج (نقاش ثنائي / رباعي)</text>
+
+                    <polygon points="115,124 405,124 465,172 55,172" fill="#F0F9FF" stroke="#1E4E68" stroke-width="2"/>
+                    <text x="260" y="153" text-anchor="middle" fill="#0F172A" font-size="13" font-weight="800">١. القاعدة: فكر (التفكير الفردي الصامت)</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-notice" class="toast-notice">تم الحفظ</div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC + 4 BOTANICAL STYLES CANVAS ENGINE
+         ========================================================================== -->
+    <script>
+        /* ======================================================================
+           1. ANIMATED BOTANICAL SAKURA & PEONY CANVAS (EXACT 4 REFERENCE STYLES)
+           ====================================================================== */
+        function initCuteFloralCanvas() {
+            const canvas = document.getElementById('cute-floral-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            // 4 Botanical Styles matching the uploaded images:
+            // 0: Ice-Blue Cherry Blossom (image_0efa46.png)
+            // 1: Black Ink-Line Sakura (image_0efa23.png)
+            // 2: Soft Pink Double Peony (image_0efa05.png)
+            // 3: Blush-Pink Sakura & Drifting Petals (image_0ef9e7.png)
+            const items = Array.from({ length: 24 }, (_, idx) => {
+                const styleType = idx % 4;
+                return {
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: 10 + Math.random() * 11,
+                    vx: (Math.random() - 0.5) * 0.32,
+                    vy: -0.18 - Math.random() * 0.3,
+                    angle: Math.random() * Math.PI * 2,
+                    vAngle: (Math.random() - 0.5) * 0.008,
+                    swayPhase: Math.random() * Math.PI * 2,
+                    styleType: styleType,
+                    isSinglePetal: Math.random() < 0.42
+                };
+            });
+
+            function drawNotchedPetalPath(ctx, r) {
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-r * 0.32, -r * 0.28, -r * 0.52, -r * 0.78, -r * 0.25, -r * 1.05);
+                ctx.lineTo(0, -r * 0.9);
+                ctx.lineTo(r * 0.25, -r * 1.05);
+                ctx.bezierCurveTo(r * 0.52, -r * 0.78, r * 0.32, -r * 0.28, 0, 0);
+                ctx.closePath();
+            }
+
+            function drawBotanicalItem(item) {
+                ctx.save();
+                ctx.translate(item.x, item.y);
+                ctx.rotate(item.angle);
+                ctx.globalAlpha = 0.65;
+
+                const r = item.size;
+
+                if (item.isSinglePetal) {
+                    // Drifting notched sakura petal (Style 2 Ink or Style 4 Blush or Style 1 Ice-Blue)
+                    drawNotchedPetalPath(ctx, r * 0.95);
+                    if (item.styleType === 0) {
+                        ctx.fillStyle = '#CCF2FF';
+                        ctx.strokeStyle = '#1E4E68';
+                    } else if (item.styleType === 1) {
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.strokeStyle = '#1E293B';
+                    } else {
+                        ctx.fillStyle = '#FFD6E0';
+                        ctx.strokeStyle = '#2B2D42';
+                    }
+                    ctx.lineWidth = 1.1;
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.restore();
+                    return;
+                }
+
+                // Full 5-Petal Notched Blossom (Zero Faces)
+                for (let i = 0; i < 5; i++) {
+                    ctx.save();
+                    ctx.rotate((i * Math.PI * 2) / 5);
+                    drawNotchedPetalPath(ctx, r);
+
+                    if (item.styleType === 0) {
+                        // Style 1: Ice-blue blossom
+                        ctx.fillStyle = '#CCF2FF';
+                        ctx.strokeStyle = '#1E4E68';
+                        ctx.lineWidth = 1.05;
+                    } else if (item.styleType === 1) {
+                        // Style 2: Minimalist black ink-line blossom
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.strokeStyle = '#1E293B';
+                        ctx.lineWidth = 1.3;
+                    } else if (item.styleType === 2) {
+                        // Style 3: Soft pink peony
+                        ctx.fillStyle = '#F9BEC7';
+                        ctx.strokeStyle = '#B56576';
+                        ctx.lineWidth = 1.1;
+                    } else {
+                        // Style 4: Blush pink sakura
+                        ctx.fillStyle = '#FFD6E0';
+                        ctx.strokeStyle = '#2B2D42';
+                        ctx.lineWidth = 1.1;
+                    }
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.restore();
+                }
+
+                // Inner layer for Style 3 Double Peony
+                if (item.styleType === 2) {
+                    for (let i = 0; i < 5; i++) {
+                        ctx.save();
+                        ctx.rotate(((i + 0.5) * Math.PI * 2) / 5);
+                        drawNotchedPetalPath(ctx, r * 0.65);
+                        ctx.fillStyle = '#FDE2E4';
+                        ctx.strokeStyle = '#B56576';
+                        ctx.lineWidth = 0.95;
+                        ctx.fill();
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+
+                // Botanical Stamens Center (No Faces)
+                if (item.styleType === 0) {
+                    ctx.strokeStyle = '#2563EB';
+                    ctx.lineWidth = 0.85;
+                    for (let j = 0; j < 6; j++) {
+                        const a = (j * Math.PI * 2) / 6;
+                        ctx.beginPath();
+                        ctx.moveTo(0, 0);
+                        ctx.lineTo(Math.cos(a) * r * 0.38, Math.sin(a) * r * 0.38);
+                        ctx.stroke();
+                    }
+                } else if (item.styleType === 3) {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, r * 0.22, 0, Math.PI * 2);
+                    ctx.fillStyle = '#E9D8A6';
+                    ctx.fill();
+                } else {
+                    ctx.strokeStyle = item.styleType === 1 ? '#1E293B' : '#B56576';
+                    ctx.lineWidth = 1;
+                    for (let j = 0; j < 4; j++) {
+                        const a = (j * Math.PI) / 2;
+                        ctx.beginPath();
+                        ctx.moveTo(0, 0);
+                        ctx.lineTo(Math.cos(a) * r * 0.26, Math.sin(a) * r * 0.26);
+                        ctx.stroke();
+                    }
+                }
+
+                ctx.restore();
+            }
+
+            function animateCanvas() {
+                ctx.clearRect(0, 0, width, height);
+                items.forEach(item => {
+                    item.swayPhase += 0.016;
+                    item.x += item.vx + Math.sin(item.swayPhase) * 0.25;
+                    item.y += item.vy;
+                    item.angle += item.vAngle;
+
+                    if (item.y < -40) {
+                        item.y = height + 35;
+                        item.x = Math.random() * width;
+                    }
+                    if (item.x < -40) item.x = width + 35;
+                    if (item.x > width + 40) item.x = -35;
+
+                    drawBotanicalItem(item);
+                });
+                requestAnimationFrame(animateCanvas);
+            }
+
+            animateCanvas();
+        }
+
+        /* ======================================================================
+           2. CORE APP INTERACTIVITY, TIMERS, SIMULATOR & QUIZ
+           ====================================================================== */
+        let soundEnabled = true;
+        let mainTimerInterval = null;
+        let mainTimerSeconds = 120;
+        let mainTimerRunning = false;
+        let currentSimStage = 1;
+        let isQuartetActive = false;
+
+        function showToast(msg) {
+            const t = document.getElementById('toast-notice');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        function playTone(freq = 540, duration = 0.15) {
+            if (!soundEnabled) return;
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                const ctx = new AudioCtx();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        function toggleSoundAlerts() {
+            soundEnabled = !soundEnabled;
+            document.getElementById('btn-sound-toggle').innerHTML = soundEnabled
+                ? '<span>🔊</span><span>الصوت</span>'
+                : '<span>🔇</span><span>مكتوم</span>';
+            showToast(soundEnabled ? 'تم تفعيل التنبيهات الصوتية' : 'تم كتم الصوت');
+        }
+
+        /* Dedicated Separate Tabs Navigation */
+        function openDedicatedTab(targetPanelId, clickedBtn) {
+            document.querySelectorAll('.tab-card-btn').forEach(btn => btn.classList.remove('active'));
+            clickedBtn.classList.add('active');
+
+            document.querySelectorAll('.tab-view-panel').forEach(panel => {
+                if (panel.id === targetPanelId) {
+                    panel.classList.add('active-view');
+                } else {
+                    panel.classList.remove('active-view');
+                }
+            });
+
+            if (targetPanelId !== 'tab-videos') {
+                ['video-player-1', 'video-player-2', 'video-player-3', 'video-player-4', 'video-player-5'].forEach(id => {
+                    const v = document.getElementById(id);
+                    if (v && !v.paused) v.pause();
+                });
+            }
+        }
+
+        /* Modal Controls */
+        function openPyramidModal() {
+            document.getElementById('pyramid-modal').classList.add('open');
+        }
+        function closePyramidModal() {
+            document.getElementById('pyramid-modal').classList.remove('open');
+        }
+
+        /* Teacher Phase Timer */
+        function formatMMSS(sec) {
+            const m = Math.floor(sec / 60);
+            const s = sec % 60;
+            return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        function changePhaseTimerDuration() {
+            clearInterval(mainTimerInterval);
+            mainTimerRunning = false;
+            mainTimerSeconds = parseInt(document.getElementById('phase-timer-select').value, 10);
+            document.getElementById('main-timer-display').textContent = formatMMSS(mainTimerSeconds);
+            document.getElementById('main-timer-btn').textContent = 'تشغيل';
+        }
+
+        function toggleMainTimer() {
+            const btn = document.getElementById('main-timer-btn');
+            if (mainTimerRunning) {
+                clearInterval(mainTimerInterval);
+                mainTimerRunning = false;
+                btn.textContent = 'استئناف';
+            } else {
+                mainTimerRunning = true;
+                btn.textContent = 'إيقاف';
+                mainTimerInterval = setInterval(() => {
+                    if (mainTimerSeconds > 0) {
+                        mainTimerSeconds--;
+                        document.getElementById('main-timer-display').textContent = formatMMSS(mainTimerSeconds);
+                    } else {
+                        clearInterval(mainTimerInterval);
+                        mainTimerRunning = false;
+                        btn.textContent = 'تشغيل';
+                        playTone(740, 0.3);
+                        showToast('انتهى وقت المرحلة الحالية');
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetMainTimer() {
+            changePhaseTimerDuration();
+        }
+
+        /* Local Video File Picker Support */
+        function attachLocalVideo(event, videoElementId, overlayId) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const videoEl = document.getElementById(videoElementId);
+            const blobUrl = URL.createObjectURL(file);
+            videoEl.src = blobUrl;
+            if (overlayId) {
+                const ov = document.getElementById(overlayId);
+                if (ov) ov.style.display = 'none';
+            }
+            videoEl.load();
+            videoEl.play().catch(() => {});
+            showToast(`تم ربط وتشغيل الفيديو: ${file.name}`);
+        }
+
+        /* ======================================================================
+           TAB 2: MARS SIMULATION STAGE & VISUAL CLASSROOM MAP
+           ====================================================================== */
+        const challengePrompts = [
+            "١. الإشعاع الكوني: تغطية المساكن بطبقة من تربة المريخ (الريجوليث) والجليد المائي لعزل الإشعاع.\n٢. بناء قباب سكنية داخل أنابيب الحمم البركانية الجوفية.",
+            "١. الضغط المنخفض وانعدام الأكسجين: استخدام تقنية MOXIE لتحويل CO2 الجوي إلى أكسجين للتنفس.\n٢. معالجة أملاح البيركلورات السامة في التربة بواسطة بكتيريا حيوية.",
+            "١. العواصف الغبارية والطاقة: الاعتماد على مفاعلات Kilopower النووية المصغرة التي لا تتأثر بحجب الشمس.\n٢. استخراج الجليد الجوفي وإذابته لتوفير المياه والأكسجين."
+        ];
+
+        function selectMarsChallenge(idx) {
+            [0, 1, 2].forEach(i => {
+                document.getElementById(`chal-card-${i}`).classList.toggle('selected-challenge', i === idx);
+            });
+            const thinkBox = document.getElementById('think-main-input');
+            if (!thinkBox.hasAttribute('readonly')) {
+                thinkBox.value = challengePrompts[idx];
+            }
+            playTone(580, 0.12);
+            showToast('تم تحديث محور التحدي المريخي المختار');
+        }
+
+        const partnerPersonas = [
+            {
+                title: "إجابة الزميل المجاور (سارة - تركيز على الإشعاع والضغط الجوي):",
+                text: "بناء المستوطنة داخل أنابيب الحمم البركانية الجوفية للحماية الطبيعية من الإشعاع والنيازك الدقيقة وانخفاض الضغط الجوي."
+            },
+            {
+                title: "إجابة الزميل المجاور (عمر - تركيز على القباب الثلجية والطاقة):",
+                text: "استخدام قباب ثلجية مضغوطة تسمح بمرور الضوء للنباتات وتمنع الإشعاع، مع تشغيل مفاعلات Kilopower النووية أثناء العواصف."
+            }
+        ];
+
+        function changePartnerPersona() {
+            const idx = parseInt(document.getElementById('partner-persona-select').value, 10);
+            document.getElementById('partner-box-title').textContent = partnerPersonas[idx].title;
+            document.getElementById('partner-box-text').textContent = partnerPersonas[idx].text;
+            showToast('تم التبديل إلى رؤية الزميل المجاور');
+        }
+
+        function renderClassroomVisualMap() {
+            const container = document.getElementById('classroom-visual-map');
+            const badge = document.getElementById('sim-stage-badge');
+            const caption = document.getElementById('classroom-stage-caption');
+
+            if (currentSimStage === 1) {
+                badge.textContent = 'المرحلة ١: تفكير فردي صامت';
+                caption.textContent = 'كل طالب يجلس في كبسولة تركيز فردية صامتة ويحلل تحديات المريخ بمفرده دون تجول أو رفع أيدٍ.';
+                container.innerHTML = `
+                    <svg width="320" height="185" viewBox="0 0 340 200">
+                        <g transform="translate(85, 62)">
+                            <circle cx="0" cy="0" r="36" fill="#FFFFFF" stroke="#1E4E68" stroke-width="2.2" stroke-dasharray="5 3"/>
+                            <circle cx="0" cy="6" r="13" fill="#B56576"/>
+                            <text x="0" y="-18" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="800">طالب ١ (أنت)</text>
+                        </g>
+                        <g transform="translate(255, 62)">
+                            <circle cx="0" cy="0" r="34" fill="#FFFFFF" stroke="#B56576" stroke-width="1.8" stroke-dasharray="4 3"/>
+                            <circle cx="0" cy="6" r="12" fill="#1E4E68"/>
+                            <text x="0" y="-18" text-anchor="middle" fill="#475569" font-size="11" font-weight="700">زميل مجاور</text>
+                        </g>
+                        <g transform="translate(85, 150)">
+                            <circle cx="0" cy="0" r="28" fill="#FFFFFF" stroke="#64748B" stroke-width="1.5"/>
+                            <circle cx="0" cy="4" r="10" fill="#52796F"/>
+                        </g>
+                        <g transform="translate(255, 150)">
+                            <circle cx="0" cy="0" r="28" fill="#FFFFFF" stroke="#64748B" stroke-width="1.5"/>
+                            <circle cx="0" cy="4" r="10" fill="#5B5F97"/>
+                        </g>
+                    </svg>
+                `;
+            } else if (currentSimStage === 2) {
+                if (!isQuartetActive) {
+                    badge.textContent = 'المرحلة ٢: مزاوجة ثنائية (Pair)';
+                    caption.textContent = 'نقاش ثنائي هادئ بينك وبين الزميل الجالس بجوارك مباشرة لمقارنة الحلول.';
+                    container.innerHTML = `
+                        <svg width="320" height="185" viewBox="0 0 340 200">
+                            <rect x="45" y="45" width="250" height="105" rx="50" fill="#FFFFFF" stroke="#1E4E68" stroke-width="2.2"/>
+                            <circle cx="110" cy="96" r="17" fill="#1E4E68"/>
+                            <text x="110" y="132" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="800">أنت</text>
+                            <circle cx="230" cy="96" r="17" fill="#B56576"/>
+                            <text x="230" y="132" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="800">الزميل المجاور</text>
+                            <path d="M138,94 H202" stroke="#52796F" stroke-width="2.5" stroke-dasharray="4 3"/>
+                            <text x="170" y="78" text-anchor="middle" fill="#065F46" font-size="11" font-weight="800">تبادل ومقارنة الأفكار</text>
+                        </svg>
+                    `;
+                } else {
+                    badge.textContent = 'المرحلة ٢: فريق رباعي (٤ طلاب)';
+                    caption.textContent = 'انضمام زوجين معاً لتكوين فريق رباعي يتناقش ويتفق على حل موحد قبل العرض.';
+                    container.innerHTML = `
+                        <svg width="320" height="185" viewBox="0 0 340 200">
+                            <circle cx="170" cy="100" r="52" fill="#FFFFFF" stroke="#1E4E68" stroke-width="2.5"/>
+                            <text x="170" y="104" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="800">طاولة الفريق الرباعي</text>
+                            <circle cx="95" cy="48" r="15" fill="#1E4E68"/>
+                            <circle cx="245" cy="48" r="15" fill="#B56576"/>
+                            <circle cx="95" cy="152" r="15" fill="#52796F"/>
+                            <circle cx="245" cy="152" r="15" fill="#5B5F97"/>
+                        </svg>
+                    `;
+                }
+            } else {
+                badge.textContent = 'المرحلة ٣: مشاركة الفصل (Share)';
+                caption.textContent = 'المتحدث يعرض الحل والمبررات على سبورة الفصل الذكية ويجيب عن استفسارات الزملاء.';
+                container.innerHTML = `
+                    <svg width="320" height="185" viewBox="0 0 340 200">
+                        <rect x="60" y="12" width="220" height="68" rx="10" fill="#FFFFFF" stroke="#1E4E68" stroke-width="2.2"/>
+                        <text x="170" y="40" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="800">سبورة الفصل الذكية - مهمة المريخ</text>
+                        <line x1="95" y1="58" x2="245" y2="58" stroke="#B56576" stroke-width="2.2"/>
+                        <circle cx="170" cy="110" r="14" fill="#B56576"/>
+                        <text x="170" y="138" text-anchor="middle" fill="#0F172A" font-size="11" font-weight="800">المتحدث باسم المجموعة</text>
+                        <circle cx="75" cy="168" r="11" fill="#1E4E68"/>
+                        <circle cx="135" cy="174" r="11" fill="#52796F"/>
+                        <circle cx="205" cy="174" r="11" fill="#5B5F97"/>
+                        <circle cx="265" cy="168" r="11" fill="#1E4E68"/>
+                    </svg>
+                `;
+            }
+        }
+
+        function switchSimulationStage(stageNum) {
+            currentSimStage = stageNum;
+            [1, 2, 3].forEach(n => {
+                const pane = document.getElementById(`sim-pane-${n}`);
+                if (pane) pane.classList.toggle('active-stage-focus', n === stageNum);
+            });
+
+            const timerSel = document.getElementById('phase-timer-select');
+            if (stageNum === 1) timerSel.value = '120';
+            if (stageNum === 2) timerSel.value = '180';
+            if (stageNum === 3) timerSel.value = '240';
+            changePhaseTimerDuration();
+
+            renderClassroomVisualMap();
+        }
+
+        function saveThinkAndUnlockPair() {
+            const mainVal = document.getElementById('think-main-input').value.trim();
+            const earlyVal = document.getElementById('think-early-input').value.trim();
+            if (!mainVal) {
+                showToast('يرجى كتابة إجابتك الفردية أولاً');
+                return;
+            }
+            document.getElementById('pair-my-answer-preview').textContent =
+                mainVal.substring(0, 120) + (mainVal.length > 120 ? '...' : '') +
+                (earlyVal ? ` | مبرر إضافي: ${earlyVal}` : '');
+            playTone(620, 0.15);
+            showToast('تم حفظ الإجابة الفردية وفتح مرحلة (زاوج)');
+            switchSimulationStage(2);
+            document.getElementById('sim-pane-2').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function toggleQuartetMode() {
+            isQuartetActive = !isQuartetActive;
+            const panel = document.getElementById('quartet-panel-box');
+            const btn = document.getElementById('btn-quartet-toggle');
+            panel.classList.toggle('show', isQuartetActive);
+            btn.classList.toggle('active', isQuartetActive);
+            btn.textContent = isQuartetActive
+                ? '✓ الفريق الرباعي مفعّل (دمج زوجين - ٤ طلاب)'
+                : '➕ توسيع إلى فريق رباعي';
+            renderClassroomVisualMap();
+            showToast(isQuartetActive ? 'تم توسيع النقاش إلى فريق رباعي' : 'العودة إلى وضع الزوج الثنائي');
+        }
+
+        function approvePairAndFocusShare() {
+            publishToClassBoard();
+            switchSimulationStage(3);
+            document.getElementById('sim-pane-3').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            showToast('تم اعتماد خلاصة المزاوجة ونشرها في مرحلة (شارك)');
+        }
+
+        function publishToClassBoard() {
+            const text = document.getElementById('pair-combined-input').value.trim();
+            const agreed = document.querySelector('input[name="pairAgreement"]:checked').value === 'agreed';
+            const groupType = isQuartetActive ? 'الفريق الرباعي المتحدث' : 'الثنائي المتحدث';
+            const statusText = agreed ? 'رأي واحد متفق عليه' : 'وجهات نظر متعددة';
+
+            document.getElementById('board-published-text').innerHTML =
+                `<strong>${groupType}:</strong> ${text} <br><span style="color:var(--peony-outline); font-weight:800;">(الحالة: ${statusText})</span>`;
+            playTone(680, 0.2);
+        }
+
+        function addClassQA() {
+            const qEl = document.getElementById('new-class-question');
+            const aEl = document.getElementById('new-pair-proof');
+            if (!qEl.value.trim() || !aEl.value.trim()) {
+                showToast('يرجى إدخال السؤال والبرهان العلمي');
+                return;
+            }
+            const card = document.createElement('div');
+            card.className = 'qa-card';
+            card.innerHTML = `
+                <div class="q-line">سؤال زميل: ${qEl.value.trim()}</div>
+                <div class="a-line">البرهان العلمي: ${aEl.value.trim()}</div>
+            `;
+            const feed = document.getElementById('qa-feed-list');
+            feed.appendChild(card);
+            feed.scrollTop = feed.scrollHeight;
+            qEl.value = '';
+            aEl.value = '';
+            showToast('تمت إضافة المناقشة للسبورة');
+        }
+
+        /* ======================================================================
+           TAB 4: 8-SLIDE PRESENTATION DATA & VIEWER
+           ====================================================================== */
+        const presentationSlidesData = [
+            {
+                num: 1,
+                title: "مفهوم استراتيجية فكر - زاوج - شارك",
+                type: "six-grid",
+                items: [
+                    { n: "1", text: "إحدى استراتيجيات التعلم التعاوني النشط المعتمدة على المناقشة التفاعلية والتعاون بين المتعلمين" },
+                    { n: "2", text: "تسير وفق ثلاث خطوات متتابعة من خلال طرح سؤال أو مشكلة مراد حلها على مجموعات المتعلمين" },
+                    { n: "3", text: "الخطوة الأولى فكر: إتاحة الوقت لهم للتفكير الفردي" },
+                    { n: "4", text: "الخطوة الثانية زاوج: إتاحة الوقت لهم للتفكير الثنائي بين المتعلم وزميله في شكل زوج" },
+                    { n: "5", text: "الخطوة الثالثة شارك: يتم خلالها مشاركة الأزواج بأفكارهم ومبرراتهم مع بعضهم البعض" },
+                    { n: "6", text: "المشاركة تكون مع الفصل بأكمله" }
+                ]
+            },
+            {
+                num: 2,
+                title: "مميزات الاستراتيجية - جزء 1",
+                type: "six-grid",
+                items: [
+                    { n: "1", text: "استراتيجية بسيطة، سهلة الاستخدام في أي موقف تعليمي دون تجهيزات معقدة، تسمح بالتفاعل التعاوني البناء" },
+                    { n: "2", text: "استخدامها بشكل صحيح يتيح للمتعلمين مستوى أعمق من التفكير حول ما يتم طرحه من أسئلة" },
+                    { n: "3", text: "تحفز الطلاب لمزيد من الإجابات وتؤدي إلى تقليل مستوى الخوف والرهبة بينهم" },
+                    { n: "4", text: "تتيح الفرصة أمام الطلاب لمناقشة أفكارهم وتبادلها معاً حيث يبدأ تكوين بنيتهم اعتماداً على تلك المناقشات" },
+                    { n: "5", text: "تؤدي إلى زيادة التحصيل، وتدعم العمليات المعرفية العليا، وتستهدف توليد عدد ممكن من الأفكار والحلول الأصلية" },
+                    { n: "6", text: "تتيح فرصة التفكير الفردي الصامت بعد طرح الأسئلة مما يساعد في وصول المتعلم لإجابات متأنية متعمقة" }
+                ]
+            },
+            {
+                num: 3,
+                title: "مميزات الاستراتيجية - جزء 2",
+                type: "six-grid",
+                items: [
+                    { n: "1", text: "يزيد نسبة المشاركين في الإجابة من المتعلمين الانطوائيين نتيجة زيادة ثقتهم بأنفسهم والسماح لهم بالتفكير وترتيب إجاباتهم" },
+                    { n: "2", text: "تتيح للمعلم والمتعلمين كشف الأفكار المغلوطة والبديلة المتأصلة في تفكير المتعلم واستبدالها بالمفاهيم الصحيحة" },
+                    { n: "3", text: "تزيد من دور المتعلم ومسؤوليته خلال مواقف التعليم والتعلم ومن ثم تقلل الوقت الذي يتحدث فيه المعلم" },
+                    { n: "4", text: "تتيح التفاعل والتفكير والمشاركة لجميع المتعلمين داخل قاعة الدرس دون الاقتصار على الفائقين منهم فقط" },
+                    { n: "5", text: "ملائمة للمعلمين والطلاب حيث تتيح التعامل مع نظام التعلم التعاوني، ولا تحتاج إلى وقت طويل في تنفيذها" },
+                    { n: "6", text: "تعطي فرصة للتلاميذ كي يتناقشوا ويتبادلوا الآراء والأفكار في المناقشة الجماعية لتكوين البنية المعرفية" }
+                ]
+            },
+            {
+                num: 4,
+                title: "دور المعلم في استراتيجية فكر - زاوج - شارك",
+                type: "six-grid",
+                items: [
+                    { n: "1", text: "طرح سؤال أو مشكلة ذات نهايات مفتوحة لاستثارة تفكير التلاميذ في مشكلة أو ظاهرة معينة" },
+                    { n: "2", text: "منح التلاميذ فرصة كافية للتفكير في الإجابة" },
+                    { n: "3", text: "تجميع التلاميذ في ثنائيات لمناقشة الإجابة التي فكروا فيها" },
+                    { n: "4", text: "الإشراف على ما يدور داخل الصف وإرشاد وتوجيه التلاميذ نحو الإجابة الصحيحة" },
+                    { n: "5", text: "توزيع التلاميذ إلى مجموعات للنقاش" },
+                    { n: "6", text: "التحكم في المدة الزمنية لكل مرحلة وتخصيص الوقت الكافي لكل مرحلة" }
+                ]
+            },
+            {
+                num: 5,
+                title: "دور المتعلم",
+                type: "three-pillars",
+                items: [
+                    { n: "١", text: "إيجابي نشط يبادر بالتعلم والبحث عن المعلومة" },
+                    { n: "٢", text: "يحلل ويفسر الظواهر ويبين الأسباب لأي قضية أو مشكلة تواجهه" },
+                    { n: "٣", text: "يبذل المتعلم مجهوداً عقلياً لحل المشكلة أو تفسير ظاهرة" }
+                ]
+            },
+            {
+                num: 6,
+                title: "المرحلة الأولى: فكر",
+                type: "six-grid",
+                items: [
+                    { n: "1", text: "المعلم يطرح سؤالاً مرتبطاً بموضوع الدرس" },
+                    { n: "2", text: "السؤال محفز للتفكير، مستوى عالٍ، مفتوح له أكثر من إجابة، مناسب للمتعلمين" },
+                    { n: "3", text: "المتعلمون يفكرون في السؤال بشكل فردي" },
+                    { n: "4", text: "المعلم يحدد الوقت اللازم للتفكير حسب مستوى الطلاب وطبيعة السؤال" },
+                    { n: "5", text: "ممنوع التجول أو الكلام، وهدوء في القاعة، بدون رفع الأيدي" },
+                    { n: "6", text: "قد تكون هناك أكثر من إجابة صحيحة، وكل متعلم يصل لإجابة منطقية بمبررات" }
+                ]
+            },
+            {
+                num: 7,
+                title: "المرحلة الثانية: زاوج",
+                type: "six-grid",
+                items: [
+                    { n: "1", text: "المعلم يطلب من كل طالب اختيار زميل واحد" },
+                    { n: "2", text: "يفضل أن يكون الزميل من يجلس بجواره حرصاً على النظام والهدوء" },
+                    { n: "3", text: "كل طالب يناقش إجابته مع زميله ويقارن الأفكار ويتبادلها" },
+                    { n: "4", text: "قد يتفق الطالبان على رأي واحد وقد لا يتفقان" },
+                    { n: "5", text: "كل زوج يشارك زوج آخر لتكوين فريق رباعي" },
+                    { n: "6", text: "الفريق الرباعي يناقش ويفكر معاً للوصول لإجابة متفق عليها وتعديل الأفكار قبل عرضها" }
+                ]
+            },
+            {
+                num: 8,
+                title: "المرحلة الثالثة: شارك",
+                type: "six-grid",
+                items: [
+                    { n: "1", text: "المعلم يدعو كل زوج لمشاركة أفكاره مع المجموعة" },
+                    { n: "2", text: "الطلاب يتبادلون الأفكار ويناقشونها مع باقي الزملاء" },
+                    { n: "3", text: "الطلاب يشاركون الأفكار أمام باقي الطلاب" },
+                    { n: "4", text: "كل مجموعة تختار متحدثاً باسمها ليعرض فكرة المجموعة" },
+                    { n: "5", text: "كتابة الأفكار على السبورة أو عرضها على حائط الفصل" },
+                    { n: "6", text: "الطلاب يعرضون أفكارهم ويناقشونها وقد يستخدمون الرسوم والتوضيحات والوسائل المختلفة" }
+                ]
+            }
+        ];
+
+        let currentSlideIndex = 0;
+        let showAllSlidesMode = false;
+
+        function buildCleanSlideHTML(slide) {
+            const flowerRefs = ['#style1-ice-blossom', '#style2-ink-blossom', '#style3-pink-peony', '#style4-blush-sakura'];
+            const chosenFlower = flowerRefs[(slide.num - 1) % 4];
+
+            if (slide.type === 'three-pillars') {
+                const pillars = slide.items.map(item => `
+                    <div class="slide-pillar-card">
+                        <div class="slide-point-num">${item.n}</div>
+                        <div class="slide-point-text">${item.text}</div>
+                    </div>
+                `).join('');
+                return `
+                    <div class="clean-slide-sheet">
+                        <svg class="corner-flower-deco" style="left: -10px; top: -10px; width: 72px; height: 72px;" viewBox="-60 -60 120 120">
+                            <use href="${chosenFlower}" transform="scale(0.75)"/>
+                        </svg>
+                        <div class="clean-slide-title">${slide.title}</div>
+                        <div class="slide-three-pillars">${pillars}</div>
+                    </div>
+                `;
+            } else {
+                const cards = slide.items.map(item => `
+                    <div class="slide-point-card">
+                        <div class="slide-point-num">${item.n}</div>
+                        <div class="slide-point-text">${item.text}</div>
+                    </div>
+                `).join('');
+                return `
+                    <div class="clean-slide-sheet">
+                        <svg class="corner-flower-deco" style="left: -10px; top: -10px; width: 72px; height: 72px;" viewBox="-60 -60 120 120">
+                            <use href="${chosenFlower}" transform="scale(0.75)"/>
+                        </svg>
+                        <div class="clean-slide-title">${slide.title}</div>
+                        <div class="slide-six-grid">${cards}</div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderPresentationViewer() {
+            const dots = document.getElementById('ppt-dots-container');
+            dots.innerHTML = presentationSlidesData.map((s, idx) => `
+                <button class="slide-pill-btn ${idx === currentSlideIndex ? 'active' : ''}" onclick="goToPptSlide(${idx})">
+                    شريحة ${s.num}
+                </button>
+            `).join('');
+
+            document.getElementById('ppt-single-view-container').innerHTML =
+                buildCleanSlideHTML(presentationSlidesData[currentSlideIndex]);
+
+            document.getElementById('ppt-all-slides-container').innerHTML =
+                presentationSlidesData.map(s => buildCleanSlideHTML(s)).join('');
+        }
+
+        function goToPptSlide(idx) {
+            currentSlideIndex = idx;
+            if (showAllSlidesMode) toggleAllPptSlidesView();
+            renderPresentationViewer();
+        }
+
+        function nextPptSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % presentationSlidesData.length;
+            renderPresentationViewer();
+        }
+
+        function prevPptSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + presentationSlidesData.length) % presentationSlidesData.length;
+            renderPresentationViewer();
+        }
+
+        function toggleAllPptSlidesView() {
+            showAllSlidesMode = !showAllSlidesMode;
+            const singleC = document.getElementById('ppt-single-view-container');
+            const allC = document.getElementById('ppt-all-slides-container');
+            const btn = document.getElementById('toggle-all-slides-btn');
+            if (showAllSlidesMode) {
+                singleC.classList.add('hidden-sec');
+                allC.classList.remove('hidden-sec');
+                btn.textContent = 'عرض شريحة بشريحة';
+            } else {
+                singleC.classList.remove('hidden-sec');
+                allC.classList.add('hidden-sec');
+                btn.textContent = 'عرض الشرائح الـ 8 معاً';
+            }
+        }
+
+        /* ======================================================================
+           TAB 5: 14-QUESTION COMPETITION LOGIC
+           ====================================================================== */
+        const compQuestions = [
+            { q: "ما هي المرحلة الأولى الأساسية في استراتيجية التعلم التشاركي (فكر - زاوج - شارك)؟", options: ["التفكير الفردي الصامت", "النقاش الجماعي للفصل", "عرض النتائج على السبورة", "تقييم الزملاء"], correct: 0 },
+            { q: "في مرحلة (فكر)، ما هو الدور الأساسي الملقى على عاتق الطالب؟", options: ["الاستماع فقط للمعلم", "التفكير بمفرده بعمق ودون مقاطعة", "التشاور بصوت عالٍ مع زميله", "كتابة الملخص النهائي"], correct: 1 },
+            { q: "ماذا يقصد بمرحلة (زاوج - Pair) في الاستراتيجية؟", options: ["انضمام كل طالبين معاً لمناقشة أفكارهما", "تزاوج الأنشطة التقنية مع التكنولوجيا الخضراء", "تقسيم الفصل إلى مجموعات كبرى", "تزاوج المعلم مع الطالب في الشرح"], correct: 0 },
+            { q: "في مرحلة (شارك - Share)، ماذا يفعل الثنائي بعد النقاش الثنائي؟", options: ["الجلوس في صمت تام", "مشاركة أفكارهم مع بقية زملائهم في الفصل", "تسليم الواجب المنزلي", "الخروج من الفصل"], correct: 1 },
+            { q: "أي مما يلي يُعد من أهم فوائد استراتيجية 'فكر - زاوج - شارك' للطلاب؟", options: ["زيادة التحدث العشوائي", "تعزيز الثقة بالنفس وتطوير مهارات التواصل", "إلغاء دور المعلم تماماً", "زيادة مدة الحصة بدون فائدة"], correct: 1 },
+            { q: "ما هو دور المعلم الأساسي أثناء مرحلة 'التفكير الفردي'؟", options: ["توجيه الطلاب ومراقبة هدوء التركيز", "إلقاء محاضرة طويلة", "تصحيح الكراسات القديمة", "ترك الفصل والانصراف"], correct: 0 },
+            { q: "كيف يسهم العمل الثنائي في مرحلة 'زاوج' في تقليل القلق لدى الطلاب الخجولين؟", options: ["لأنه يتطلب التحدث أمام الفصل كله مباشرة", "لأنه يتم مع زميل واحد بشكل ودي قبل المشاركة العامة", "لأنه لا يوجد فيه أي تقييم نهائي", "لأنه يعتمد على الكتابة فقط"], correct: 1 },
+            { q: "متى تبدأ مرحلة 'شارك' في التنفيذ العملي داخل الفصل؟", options: ["قبل مرحلة التفكير الفردي", "بعد انتهاء الحصة المدرسية", "بعد انتهاء النقاش الثنائي بين كل طالبين", "أثناء دخول المعلم للفصل حصراً"], correct: 2 },
+            { q: "ما هو الأسلوب الأمثل لتوزيع الأدوار بين الثنائي في مرحلة 'زاوج'؟", options: ["احترام الرأي والإنصات المتبادل للأفكار", "سيطرة طالب واحد على النقاش", "تجاهل رأي الزميل الضعيف", "عدم التحدث نهائياً"], correct: 0 },
+            { q: "هل تتطلب استراتيجية 'فكر - زاوج - شارك' أدوات تكنولوجية معقدة لنجاحها؟", options: ["نعم، يجب استخدام الحواسيب دائماً", "لا، يمكن تنفيذها بسهولة بأدوات بسيطة ومباشرة", "نعم، يشترط وجود إنترنت فائق السرعة", "لا يمكن تطبيقها إلا عبر الهواتف"], correct: 1 },
+            { q: "ما هو الهدف من إعطاء وقت كافٍ للتفكير الفردي في البداية؟", options: ["إهدار الوقت المخصص للحصة", "منح كل طالب فرصة لصياغة فكرته الخاصة بعمق", "إجبار الطلاب على حفظ النصوص", "معاقبة الطلاب غير الهادئين"], correct: 1 },
+            { q: "كيف يقيم المعلم مدى نجاح تطبيق الاستراتيجية بنهاية النشاط؟", options: ["من خلال ملاحظة تفاعل المجموعات وجودة الأفكار المطروحة", "من خلال عدد الكلمات المكتوبة فقط", "من خلال سرعة خروج الطلاب", "لا يمكن تقييمها أبداً"], correct: 0 },
+            { q: "ما هي المهارة العقلية التي تنميها مرحلة 'فكر' بشكل أساسي لدى الطالب؟", options: ["التفكير النقدي والتحليلي المستقل", "الحفظ الآلي والتخزين المؤقت", "التقليد الأعمى للإجابات", "السرعة الحركية البحتة"], correct: 0 },
+            { q: "ما هو التصرف الصحيح عند اختلاف وجهات النظر بين الزميلين في مرحلة 'زاوج'؟", options: ["التشاجر السريع", "النقاش الهادئ والوصول لرأي موحد أو طرح الرأيين معاً", "إلغاء النشاط فوراً", "تجاهل رأي الطرف الآخر"], correct: 1 }
+        ];
+
+        let compIndex = 0;
+        let compScores = [0, 0];
+        let compCurrentTeam = 0;
+        let compAnswered = false;
+        let compTeamNames = ["الفريق الأول", "الفريق الثاني"];
+        let compTimer = null;
+        let compTimeLeft = 30;
+
+        function startCompetitionGame() {
+            const t1 = document.getElementById('comp-team1-input').value.trim();
+            const t2 = document.getElementById('comp-team2-input').value.trim();
+            if (t1) compTeamNames[0] = t1;
+            if (t2) compTeamNames[1] = t2;
+
+            document.getElementById('comp-name-t1').textContent = compTeamNames[0];
+            document.getElementById('comp-name-t2').textContent = compTeamNames[1];
+            document.getElementById('comp-setup-screen').classList.add('hidden-sec');
+            document.getElementById('comp-game-screen').classList.remove('hidden-sec');
+            document.getElementById('comp-timer-pill').classList.remove('hidden-sec');
+
+            compIndex = 0;
+            compScores = [0, 0];
+            compCurrentTeam = 0;
+            updateCompScoreboard();
+            loadCompetitionQuestion();
+        }
+
+        function startCompTimer() {
+            clearInterval(compTimer);
+            compTimeLeft = 30;
+            document.getElementById('comp-time-left').textContent = compTimeLeft;
+            compTimer = setInterval(() => {
+                compTimeLeft--;
+                document.getElementById('comp-time-left').textContent = compTimeLeft;
+                if (compTimeLeft <= 0) {
+                    clearInterval(compTimer);
+                    handleCompTimeout();
+                }
+            }, 1000);
+        }
+
+        function handleCompTimeout() {
+            if (compAnswered) return;
+            compAnswered = true;
+            const q = compQuestions[compIndex];
+            const buttons = document.querySelectorAll('#comp-options-list button');
+            if (buttons[q.correct]) buttons[q.correct].classList.add('correct-ans');
+            const otherTeam = 1 - compCurrentTeam;
+            compScores[otherTeam] += 5;
+            updateCompScoreboard();
+            document.getElementById('comp-next-btn').classList.remove('hidden-sec');
+        }
+
+        function loadCompetitionQuestion() {
+            compAnswered = false;
+            document.getElementById('comp-next-btn').classList.add('hidden-sec');
+            startCompTimer();
+
+            const q = compQuestions[compIndex];
+            document.getElementById('comp-q-progress').textContent = `السؤال ${compIndex + 1} من ${compQuestions.length}`;
+            document.getElementById('comp-q-text').textContent = q.q;
+            document.getElementById('comp-turn-badge').textContent = `دور: ${compTeamNames[compCurrentTeam]}`;
+
+            document.getElementById('comp-card-t1').classList.toggle('active-turn', compCurrentTeam === 0);
+            document.getElementById('comp-card-t2').classList.toggle('active-turn', compCurrentTeam === 1);
+
+            const list = document.getElementById('comp-options-list');
+            list.innerHTML = '';
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option-btn';
+                btn.textContent = opt;
+                btn.onclick = () => selectCompOption(idx, btn);
+                list.appendChild(btn);
+            });
+        }
+
+        function selectCompOption(selectedIndex, btnEl) {
+            if (compAnswered) return;
+            compAnswered = true;
+            clearInterval(compTimer);
+
+            const q = compQuestions[compIndex];
+            const buttons = document.querySelectorAll('#comp-options-list button');
+
+            if (selectedIndex === q.correct) {
+                btnEl.classList.add('correct-ans');
+                compScores[compCurrentTeam] += 10;
+                playTone(720, 0.2);
+                if (soundEnabled && 'speechSynthesis' in window) {
+                    const phrases = ["أحسنت!", "ممتاز!", "رائع!", "إجابة موفقة!"];
+                    const u = new SpeechSynthesisUtterance(phrases[Math.floor(Math.random() * phrases.length)]);
+                    u.lang = 'ar-SA';
+                    window.speechSynthesis.speak(u);
+                }
+            } else {
+                btnEl.classList.add('wrong-ans');
+                buttons[q.correct].classList.add('correct-ans');
+                compScores[1 - compCurrentTeam] += 5;
+                playTone(300, 0.2);
+            }
+
+            updateCompScoreboard();
+            document.getElementById('comp-next-btn').classList.remove('hidden-sec');
+        }
+
+        function updateCompScoreboard() {
+            document.getElementById('comp-score-t1').textContent = compScores[0];
+            document.getElementById('comp-score-t2').textContent = compScores[1];
+        }
+
+        function nextCompetitionQuestion() {
+            compIndex++;
+            compCurrentTeam = 1 - compCurrentTeam;
+            if (compIndex < compQuestions.length) {
+                loadCompetitionQuestion();
+            } else {
+                clearInterval(compTimer);
+                let winner = "تعادل رائع بين الفريقين!";
+                if (compScores[0] > compScores[1]) winner = `🎉 مبروك فوز ${compTeamNames[0]}!`;
+                else if (compScores[1] > compScores[0]) winner = `🎉 مبروك فوز ${compTeamNames[1]}!`;
+
+                document.getElementById('comp-timer-pill').classList.add('hidden-sec');
+                document.getElementById('comp-q-text').innerHTML = `
+                    <div style="text-align:center; padding:14px 0;">
+                        <div style="font-size:1.3rem; font-weight:900; color:var(--ice-blue-deep); margin-bottom:6px;">${winner}</div>
+                        <div style="font-size:0.95rem; color:var(--text-body); font-weight:700;">${compTeamNames[0]}: ${compScores[0]} | ${compTeamNames[1]}: ${compScores[1]}</div>
+                    </div>
+                `;
+                document.getElementById('comp-options-list').innerHTML = `
+                    <button class="primary-action-btn" style="width:100%;" onclick="resetCompetitionGame()">
+                        🔄 إعادة المسابقة من جديد
+                    </button>
+                `;
+                document.getElementById('comp-next-btn').classList.add('hidden-sec');
+            }
+        }
+
+        function resetCompetitionGame() {
+            document.getElementById('comp-game-screen').classList.add('hidden-sec');
+            document.getElementById('comp-setup-screen').classList.remove('hidden-sec');
+        }
+
+        /* Workspace Reset & Export */
+        function resetEntireWorkspace() {
+            isQuartetActive = false;
+            switchSimulationStage(1);
+            resetMainTimer();
+            showToast('تمت إعادة ضبط مساحة العمل');
+        }
+
+        function exportClassBoardFile() {
+            const thinkVal = document.getElementById('think-main-input').value;
+            const pairVal = document.getElementById('pair-combined-input').value;
+            const boardVal = document.getElementById('board-published-text').innerText;
+            const content = `تقرير سبورة الفصل - استراتيجية فكر، زاوج، شارك\n============================================\n\n` +
+                            `1. التفكير الفردي:\n${thinkVal}\n\n2. المزاوجة:\n${pairVal}\n\n3. سبورة الفصل:\n${boardVal}\n`;
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'think-pair-share-report.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('تم تصدير التقرير بنجاح');
+        }
+
+        /* Initialize Canvas, Viewers & Auto-Chain Videos */
+        window.addEventListener('DOMContentLoaded', () => {
+            initCuteFloralCanvas();
+            renderPresentationViewer();
+            renderClassroomVisualMap();
+
+            const v1 = document.getElementById('video-player-1');
+            const v2 = document.getElementById('video-player-2');
+            if (v1 && v2) {
+                v1.addEventListener('ended', () => {
+                    const autoChain = document.getElementById('auto-chain-videos');
+                    if (autoChain && autoChain.checked) {
+                        v2.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        v2.play().catch(() => {});
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
